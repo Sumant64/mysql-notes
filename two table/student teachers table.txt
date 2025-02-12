@@ -1,0 +1,686 @@
+📝. Creation and Initial Setup
+-------------------------------
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| school             |
+| springjdbc         |
+| springorm          |
+| student_manage     |
+| sys                |
+| two_table          |
+| world              |
++--------------------+
+11 rows in set (0.00 sec)
+
+mysql> create database student_teacher;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use student_teacher;
+Database changed
+mysql> show tables;
+Empty set (0.01 sec)
+
+mysql> create table teachers (teacherID int auto_increment primary key, firstName varchar(100) not null, lastName varchar(100), phoneNo int unique not null, age int, subject varchar(100) not null, experience int;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> create table teachers (teacherID int auto_increment primary key, firstName varchar(100) not null, lastName varchar(100), phoneNo int unique not null, age int, subject varchar(100) not null, experience int);
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> show tables;
++---------------------------+
+| Tables_in_student_teacher |
++---------------------------+
+| teachers                  |
++---------------------------+
+1 row in set (0.00 sec)
+
+mysql> desc teachers;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| teacherID  | int          | NO   | PRI | NULL    | auto_increment |
+| firstName  | varchar(100) | NO   |     | NULL    |                |
+| lastName   | varchar(100) | YES  |     | NULL    |                |
+| phoneNo    | int          | NO   | UNI | NULL    |                |
+| age        | int          | YES  |     | NULL    |                |
+| subject    | varchar(100) | NO   |     | NULL    |                |
+| experience | int          | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+7 rows in set (0.01 sec)
+
+mysql> create table students (studentID int auto_increment primary key, firstName varchar(100) not null, lastName varchar(100), phoneNo int unique not null, age int, foreign key teacherID references teachers(teacherID);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references teachers(teacherID)' at line 1
+mysql> create table students (studentID int auto_increment primary key, firstName varchar(100) not null, lastName varchar(100), phoneNo int unique not null, age int, foreign key teacherID references teachers(teacherID));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references teachers(teacherID))' at line 1
+mysql> create table students (studentID int auto_increment primary key, firstName varchar(100) not null, lastName varchar(100), phoneNo int unique not null, age int, teacherID int foreign key references teachers(teacherID));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key references teachers(teacherID))' at line 1
+mysql> create table students (studentID int auto_increment primary key, firstName varchar(100) not null, lastName varchar(100), phoneNo int unique not null, age int, teacherID int, foreign key (teacherID) references teachers(teacherID));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> show tables;
++---------------------------+
+| Tables_in_student_teacher |
++---------------------------+
+| students                  |
+| teachers                  |
++---------------------------+
+2 rows in set (0.00 sec)
+
+mysql> desc students;
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| studentID | int          | NO   | PRI | NULL    | auto_increment |
+| firstName | varchar(100) | NO   |     | NULL    |                |
+| lastName  | varchar(100) | YES  |     | NULL    |                |
+| phoneNo   | int          | NO   | UNI | NULL    |                |
+| age       | int          | YES  |     | NULL    |                |
+| teacherID | int          | YES  | MUL | NULL    |                |
++-----------+--------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> desc teachers;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| teacherID  | int          | NO   | PRI | NULL    | auto_increment |
+| firstName  | varchar(100) | NO   |     | NULL    |                |
+| lastName   | varchar(100) | YES  |     | NULL    |                |
+| phoneNo    | int          | NO   | UNI | NULL    |                |
+| age        | int          | YES  |     | NULL    |                |
+| subject    | varchar(100) | NO   |     | NULL    |                |
+| experience | int          | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> insert into teachers values
+    -> (^C
+mysql> alter table teachers modify phoneNo varchar(10);
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc teachers
+    -> ;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| teacherID  | int          | NO   | PRI | NULL    | auto_increment |
+| firstName  | varchar(100) | NO   |     | NULL    |                |
+| lastName   | varchar(100) | YES  |     | NULL    |                |
+| phoneNo    | varchar(10)  | YES  | UNI | NULL    |                |
+| age        | int          | YES  |     | NULL    |                |
+| subject    | varchar(100) | NO   |     | NULL    |                |
+| experience | int          | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> alter table students modify phoneNo varchar(10);
+Query OK, 0 rows affected (2.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc students;
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| studentID | int          | NO   | PRI | NULL    | auto_increment |
+| firstName | varchar(100) | NO   |     | NULL    |                |
+| lastName  | varchar(100) | YES  |     | NULL    |                |
+| phoneNo   | varchar(10)  | YES  | UNI | NULL    |                |
+| age       | int          | YES  |     | NULL    |                |
+| teacherID | int          | YES  | MUL | NULL    |                |
++-----------+--------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> insert into teachers (firstName, lastName, phoneNo, age, subject, experience) values
+    -> ("anil", "kumar", "7809563489", 39, "maths", 10),
+    -> ("piyush", "kumar", "9812456745", 45, "physics", 20),
+    -> ("janki", "kumari", "5698763412", 34, "english", 10);
+Query OK, 3 rows affected (0.06 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from teachers;
++-----------+-----------+----------+------------+------+---------+------------+
+| teacherID | firstName | lastName | phoneNo    | age  | subject | experience |
++-----------+-----------+----------+------------+------+---------+------------+
+|         1 | anil      | kumar    | 7809563489 |   39 | maths   |         10 |
+|         2 | piyush    | kumar    | 9812456745 |   45 | physics |         20 |
+|         3 | janki     | kumari   | 5698763412 |   34 | english |         10 |
++-----------+-----------+----------+------------+------+---------+------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into students (firstName, lastName, phoneNo, age, teacherID) values
+    -> ('John', 'Doe', '1231', 23, 1),
+    -> ('Jane', 'Smith', '11', 22, 1),
+    -> ('Alice', 'Johnson', '123', 18, 2),
+    -> ^C
+mysql> INSERT INTO your_table_name (firstName, lastName, phoneNo, age, teacherId)
+    -> VALUES
+    -> ('John', 'Doe', '1234567891', 25, 1),
+    -> ('Jane', 'Smith', '1234567892', 30, 2),
+    -> ('Michael', 'Johnson', '1234567893', 35, 3),
+    -> ('Emily', 'Williams', '1234567894', 28, 1),
+    -> ('Christopher', 'Brown', '1234567895', 32, 2),
+    -> ('Amanda', 'Jones', '1234567896', 27, 3),
+    -> ('David', 'Garcia', '1234567897', 29, 1),
+    -> ('Jennifer', 'Martinez', '1234567898', 33, 2),
+    -> ('James', 'Hernandez', '1234567899', 31, 3),
+    -> ('Mary', 'Lopez', '1234567810', 26, 1),
+    -> ('Daniel', 'Gonzalez', '1234567811', 34, 2),
+    -> ('Jessica', 'Perez', '1234567812', 36, 3),
+    -> ('Robert', 'Wilson', '1234567813', 37, 1),
+    -> ('Patricia', 'Davis', '1234567814', 38, 2),
+    -> ('Matthew', 'Miller', '1234567815', 39, 3),
+    -> ('Linda', 'Taylor', '1234567816', 40, 1),
+    -> ('Barbara', 'Anderson', '1234567817', 41, 2),
+    -> ('Richard', 'Thomas', '1234567818', 42, 3);
+ERROR 1146 (42S02): Table 'student_teacher.your_table_name' doesn't exist
+mysql> INSERT INTO students (firstName, lastName, phoneNo, age, teacherId)
+    -> VALUES
+    -> ('John', 'Doe', '1234567891', 25, 1),
+    -> ('Jane', 'Smith', '1234567892', 30, 2),
+    -> ('Michael', 'Johnson', '1234567893', 35, 3),
+    -> ('Emily', 'Williams', '1234567894', 28, 1),
+    -> ('Christopher', 'Brown', '1234567895', 32, 2),
+    -> ('Amanda', 'Jones', '1234567896', 27, 3),
+    -> ('David', 'Garcia', '1234567897', 29, 1),
+    -> ('Jennifer', 'Martinez', '1234567898', 33, 2),
+    -> ('James', 'Hernandez', '1234567899', 31, 3),
+    -> ('Mary', 'Lopez', '1234567810', 26, 1),
+    -> ('Daniel', 'Gonzalez', '1234567811', 34, 2),
+    -> ('Jessica', 'Perez', '1234567812', 36, 3),
+    -> ('Robert', 'Wilson', '1234567813', 37, 1),
+    -> ('Patricia', 'Davis', '1234567814', 38, 2),
+    -> ('Matthew', 'Miller', '1234567815', 39, 3),
+    -> ('Linda', 'Taylor', '1234567816', 40, 1),
+    -> ('Barbara', 'Anderson', '1234567817', 41, 2),
+    -> ('Richard', 'Thomas', '1234567818', 42, 3);
+Query OK, 18 rows affected (0.00 sec)
+Records: 18  Duplicates: 0  Warnings: 0
+
+mysql> show tables;
++---------------------------+
+| Tables_in_student_teacher |
++---------------------------+
+| students                  |
+| teachers                  |
++---------------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from students;
++-----------+-------------+-----------+------------+------+-----------+
+| studentID | firstName   | lastName  | phoneNo    | age  | teacherID |
++-----------+-------------+-----------+------------+------+-----------+
+|         1 | John        | Doe       | 1234567891 |   25 |         1 |
+|         2 | Jane        | Smith     | 1234567892 |   30 |         2 |
+|         3 | Michael     | Johnson   | 1234567893 |   35 |         3 |
+|         4 | Emily       | Williams  | 1234567894 |   28 |         1 |
+|         5 | Christopher | Brown     | 1234567895 |   32 |         2 |
+|         6 | Amanda      | Jones     | 1234567896 |   27 |         3 |
+|         7 | David       | Garcia    | 1234567897 |   29 |         1 |
+|         8 | Jennifer    | Martinez  | 1234567898 |   33 |         2 |
+|         9 | James       | Hernandez | 1234567899 |   31 |         3 |
+|        10 | Mary        | Lopez     | 1234567810 |   26 |         1 |
+|        11 | Daniel      | Gonzalez  | 1234567811 |   34 |         2 |
+|        12 | Jessica     | Perez     | 1234567812 |   36 |         3 |
+|        13 | Robert      | Wilson    | 1234567813 |   37 |         1 |
+|        14 | Patricia    | Davis     | 1234567814 |   38 |         2 |
+|        15 | Matthew     | Miller    | 1234567815 |   39 |         3 |
+|        16 | Linda       | Taylor    | 1234567816 |   40 |         1 |
+|        17 | Barbara     | Anderson  | 1234567817 |   41 |         2 |
+|        18 | Richard     | Thomas    | 1234567818 |   42 |         3 |
++-----------+-------------+-----------+------------+------+-----------+
+18 rows in set (0.00 sec)
+
+mysql> select * from teachers;
++-----------+-----------+----------+------------+------+---------+------------+
+| teacherID | firstName | lastName | phoneNo    | age  | subject | experience |
++-----------+-----------+----------+------------+------+---------+------------+
+|         1 | anil      | kumar    | 7809563489 |   39 | maths   |         10 |
+|         2 | piyush    | kumar    | 9812456745 |   45 | physics |         20 |
+|         3 | janki     | kumari   | 5698763412 |   34 | english |         10 |
++-----------+-----------+----------+------------+------+---------+------------+
+3 rows in set (0.00 sec)
+
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+
+❓. show studentid , student.firstName and teacher.firstname student wise which teacher is teaching him?
+
+mysql> select students.studentID, students.firstName as 'Student Name', teachers.firstName as 'Teacher Name' from students left join teachers on students.teacherID = teachers.teacherID;
++-----------+--------------+--------------+
+| studentID | Student Name | Teacher Name |
++-----------+--------------+--------------+
+|         1 | John         | anil         |
+|         2 | Jane         | piyush       |
+|         3 | Michael      | janki        |
+|         4 | Emily        | anil         |
+|         5 | Christopher  | piyush       |
+|         6 | Amanda       | janki        |
+|         7 | David        | anil         |
+|         8 | Jennifer     | piyush       |
+|         9 | James        | janki        |
+|        10 | Mary         | anil         |
+|        11 | Daniel       | piyush       |
+|        12 | Jessica      | janki        |
+|        13 | Robert       | anil         |
+|        14 | Patricia     | piyush       |
+|        15 | Matthew      | janki        |
+|        16 | Linda        | anil         |
+|        17 | Barbara      | piyush       |
+|        18 | Richard      | janki        |
++-----------+--------------+--------------+
+18 rows in set (0.00 sec)
+
+mysql> select students.studentID, students.firstName as 'Student Name', teachers.firstName as 'Teacher Name' from students left join teachers on students.teacherID = teachers.teacherID limit 5 offset 0;
++-----------+--------------+--------------+
+| studentID | Student Name | Teacher Name |
++-----------+--------------+--------------+
+|         1 | John         | anil         |
+|         2 | Jane         | piyush       |
+|         3 | Michael      | janki        |
+|         4 | Emily        | anil         |
+|         5 | Christopher  | piyush       |
++-----------+--------------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> select students.studentID, students.firstName as 'Student Name', teachers.firstName as 'Teacher Name' from students left join teachers on students.teacherID = teachers.teacherID limit 5 offset 5;
++-----------+--------------+--------------+
+| studentID | Student Name | Teacher Name |
++-----------+--------------+--------------+
+|         6 | Amanda       | janki        |
+|         7 | David        | anil         |
+|         8 | Jennifer     | piyush       |
+|         9 | James        | janki        |
+|        10 | Mary         | anil         |
++-----------+--------------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> select students.studentID, students.firstName as 'Student Name', teachers.firstName as 'Teacher Name' from students left join teachers on students.teacherID = teachers.teacherID limit 5 offset 10;
++-----------+--------------+--------------+
+| studentID | Student Name | Teacher Name |
++-----------+--------------+--------------+
+|        11 | Daniel       | piyush       |
+|        12 | Jessica      | janki        |
+|        13 | Robert       | anil         |
+|        14 | Patricia     | piyush       |
+|        15 | Matthew      | janki        |
++-----------+--------------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> select students.studentID, students.firstName as 'Student Name', teachers.firstName as 'Teacher Name' from students left join teachers on students.teacherID = teachers.teacherID limit 5 offset 15;
++-----------+--------------+--------------+
+| studentID | Student Name | Teacher Name |
++-----------+--------------+--------------+
+|        16 | Linda        | anil         |
+|        17 | Barbara      | piyush       |
+|        18 | Richard      | janki        |
++-----------+--------------+--------------+
+3 rows in set (0.00 sec)
+
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+
+❓. show student name, age, teacher name--> in this use concat to print (firstName and lastname) in one column..
+
+
+mysql> select students.studentID, students.firstName as 'Student FirstName', students.lastName as 'Student Last Name', students.age as 'Age', teachers.firstName as 'Teacher first Name', teachers.lastName as 'Teacher Last Name' from students left join teachers on students.teacherID= teachers.teacherID;
++-----------+-------------------+-------------------+------+--------------------+-------------------+
+| studentID | Student FirstName | Student Last Name | Age  | Teacher first Name | Teacher Last Name |
++-----------+-------------------+-------------------+------+--------------------+-------------------+
+|         1 | John              | Doe               |   25 | anil               | kumar             |
+|         2 | Jane              | Smith             |   30 | piyush             | kumar             |
+|         3 | Michael           | Johnson           |   35 | janki              | kumari            |
+|         4 | Emily             | Williams          |   28 | anil               | kumar             |
+|         5 | Christopher       | Brown             |   32 | piyush             | kumar             |
+|         6 | Amanda            | Jones             |   27 | janki              | kumari            |
+|         7 | David             | Garcia            |   29 | anil               | kumar             |
+|         8 | Jennifer          | Martinez          |   33 | piyush             | kumar             |
+|         9 | James             | Hernandez         |   31 | janki              | kumari            |
+|        10 | Mary              | Lopez             |   26 | anil               | kumar             |
+|        11 | Daniel            | Gonzalez          |   34 | piyush             | kumar             |
+|        12 | Jessica           | Perez             |   36 | janki              | kumari            |
+|        13 | Robert            | Wilson            |   37 | anil               | kumar             |
+|        14 | Patricia          | Davis             |   38 | piyush             | kumar             |
+|        15 | Matthew           | Miller            |   39 | janki              | kumari            |
+|        16 | Linda             | Taylor            |   40 | anil               | kumar             |
+|        17 | Barbara           | Anderson          |   41 | piyush             | kumar             |
+|        18 | Richard           | Thomas            |   42 | janki              | kumari            |
++-----------+-------------------+-------------------+------+--------------------+-------------------+
+18 rows in set (0.00 sec)
+
+mysql> select students.studentID, concat(students.firstName, students.lastName) as 'student name', students.age as 'Age', teachers.firstName as 'Teacher first Name', teachers.lastName as 'Teacher Last Name' from students left join teachers on students.teacherID= teachers.teacherID;
++-----------+------------------+------+--------------------+-------------------+
+| studentID | student name     | Age  | Teacher first Name | Teacher Last Name |
++-----------+------------------+------+--------------------+-------------------+
+|         1 | JohnDoe          |   25 | anil               | kumar             |
+|         2 | JaneSmith        |   30 | piyush             | kumar             |
+|         3 | MichaelJohnson   |   35 | janki              | kumari            |
+|         4 | EmilyWilliams    |   28 | anil               | kumar             |
+|         5 | ChristopherBrown |   32 | piyush             | kumar             |
+|         6 | AmandaJones      |   27 | janki              | kumari            |
+|         7 | DavidGarcia      |   29 | anil               | kumar             |
+|         8 | JenniferMartinez |   33 | piyush             | kumar             |
+|         9 | JamesHernandez   |   31 | janki              | kumari            |
+|        10 | MaryLopez        |   26 | anil               | kumar             |
+|        11 | DanielGonzalez   |   34 | piyush             | kumar             |
+|        12 | JessicaPerez     |   36 | janki              | kumari            |
+|        13 | RobertWilson     |   37 | anil               | kumar             |
+|        14 | PatriciaDavis    |   38 | piyush             | kumar             |
+|        15 | MatthewMiller    |   39 | janki              | kumari            |
+|        16 | LindaTaylor      |   40 | anil               | kumar             |
+|        17 | BarbaraAnderson  |   41 | piyush             | kumar             |
+|        18 | RichardThomas    |   42 | janki              | kumari            |
++-----------+------------------+------+--------------------+-------------------+
+18 rows in set (0.00 sec)
+
+mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'student name', students.age as 'Age', teachers.firstName as 'Teacher first Name', teachers.lastName as 'Teacher Last Name' from students left join teachers on students.teacherID= teachers.teacherID;
++-----------+-------------------+------+--------------------+-------------------+
+| studentID | student name      | Age  | Teacher first Name | Teacher Last Name |
++-----------+-------------------+------+--------------------+-------------------+
+|         1 | John Doe          |   25 | anil               | kumar             |
+|         2 | Jane Smith        |   30 | piyush             | kumar             |
+|         3 | Michael Johnson   |   35 | janki              | kumari            |
+|         4 | Emily Williams    |   28 | anil               | kumar             |
+|         5 | Christopher Brown |   32 | piyush             | kumar             |
+|         6 | Amanda Jones      |   27 | janki              | kumari            |
+|         7 | David Garcia      |   29 | anil               | kumar             |
+|         8 | Jennifer Martinez |   33 | piyush             | kumar             |
+|         9 | James Hernandez   |   31 | janki              | kumari            |
+|        10 | Mary Lopez        |   26 | anil               | kumar             |
+|        11 | Daniel Gonzalez   |   34 | piyush             | kumar             |
+|        12 | Jessica Perez     |   36 | janki              | kumari            |
+|        13 | Robert Wilson     |   37 | anil               | kumar             |
+|        14 | Patricia Davis    |   38 | piyush             | kumar             |
+|        15 | Matthew Miller    |   39 | janki              | kumari            |
+|        16 | Linda Taylor      |   40 | anil               | kumar             |
+|        17 | Barbara Anderson  |   41 | piyush             | kumar             |
+|        18 | Richard Thomas    |   42 | janki              | kumari            |
++-----------+-------------------+------+--------------------+-------------------+
+18 rows in set (0.00 sec)
+
+mysql> select students.studentID, students.firstName + ' ' + students.lastName as 'student name', students.age as 'Age', teachers.firstName as 'Teacher first Name', teachers.lastName as 'Teacher Last Name' from students left join teachers on students.teacherID= teachers.teacherID;
++-----------+--------------+------+--------------------+-------------------+
+| studentID | student name | Age  | Teacher first Name | Teacher Last Name |
++-----------+--------------+------+--------------------+-------------------+
+|         1 |            0 |   25 | anil               | kumar             |
+|         2 |            0 |   30 | piyush             | kumar             |
+|         3 |            0 |   35 | janki              | kumari            |
+|         4 |            0 |   28 | anil               | kumar             |
+|         5 |            0 |   32 | piyush             | kumar             |
+|         6 |            0 |   27 | janki              | kumari            |
+|         7 |            0 |   29 | anil               | kumar             |
+|         8 |            0 |   33 | piyush             | kumar             |
+|         9 |            0 |   31 | janki              | kumari            |
+|        10 |            0 |   26 | anil               | kumar             |
+|        11 |            0 |   34 | piyush             | kumar             |
+|        12 |            0 |   36 | janki              | kumari            |
+|        13 |            0 |   37 | anil               | kumar             |
+|        14 |            0 |   38 | piyush             | kumar             |
+|        15 |            0 |   39 | janki              | kumari            |
+|        16 |            0 |   40 | anil               | kumar             |
+|        17 |            0 |   41 | piyush             | kumar             |
+|        18 |            0 |   42 | janki              | kumari            |
++-----------+--------------+------+--------------------+-------------------+
+18 rows in set, 33 warnings (0.00 sec)
+
+mysql> select students.studentID, (students.firstName + ' ' + students.lastName) as 'student name', students.age as 'Age', teachers.firstName as 'Teacher first Name', teachers.lastName as 'Teacher Last Name' from students left join teachers on students.teacherID= teachers.teacherID;
++-----------+--------------+------+--------------------+-------------------+
+| studentID | student name | Age  | Teacher first Name | Teacher Last Name |
++-----------+--------------+------+--------------------+-------------------+
+|         1 |            0 |   25 | anil               | kumar             |
+|         2 |            0 |   30 | piyush             | kumar             |
+|         3 |            0 |   35 | janki              | kumari            |
+|         4 |            0 |   28 | anil               | kumar             |
+|         5 |            0 |   32 | piyush             | kumar             |
+|         6 |            0 |   27 | janki              | kumari            |
+|         7 |            0 |   29 | anil               | kumar             |
+|         8 |            0 |   33 | piyush             | kumar             |
+|         9 |            0 |   31 | janki              | kumari            |
+|        10 |            0 |   26 | anil               | kumar             |
+|        11 |            0 |   34 | piyush             | kumar             |
+|        12 |            0 |   36 | janki              | kumari            |
+|        13 |            0 |   37 | anil               | kumar             |
+|        14 |            0 |   38 | piyush             | kumar             |
+|        15 |            0 |   39 | janki              | kumari            |
+|        16 |            0 |   40 | anil               | kumar             |
+|        17 |            0 |   41 | piyush             | kumar             |
+|        18 |            0 |   42 | janki              | kumari            |
++-----------+--------------+------+--------------------+-------------------+
+18 rows in set, 33 warnings (0.00 sec)
+
+mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'student name', students.age as 'Age', teachers.firstName as 'Teacher first Name', teachers.lastName as 'Teacher Last Name' from students left join teachers on students.teacherID= teachers.teacherID;
++-----------+-------------------+------+--------------------+-------------------+
+| studentID | student name      | Age  | Teacher first Name | Teacher Last Name |
++-----------+-------------------+------+--------------------+-------------------+
+|         1 | John Doe          |   25 | anil               | kumar             |
+|         2 | Jane Smith        |   30 | piyush             | kumar             |
+|         3 | Michael Johnson   |   35 | janki              | kumari            |
+|         4 | Emily Williams    |   28 | anil               | kumar             |
+|         5 | Christopher Brown |   32 | piyush             | kumar             |
+|         6 | Amanda Jones      |   27 | janki              | kumari            |
+|         7 | David Garcia      |   29 | anil               | kumar             |
+|         8 | Jennifer Martinez |   33 | piyush             | kumar             |
+|         9 | James Hernandez   |   31 | janki              | kumari            |
+|        10 | Mary Lopez        |   26 | anil               | kumar             |
+|        11 | Daniel Gonzalez   |   34 | piyush             | kumar             |
+|        12 | Jessica Perez     |   36 | janki              | kumari            |
+|        13 | Robert Wilson     |   37 | anil               | kumar             |
+|        14 | Patricia Davis    |   38 | piyush             | kumar             |
+|        15 | Matthew Miller    |   39 | janki              | kumari            |
+|        16 | Linda Taylor      |   40 | anil               | kumar             |
+|        17 | Barbara Anderson  |   41 | piyush             | kumar             |
+|        18 | Richard Thomas    |   42 | janki              | kumari            |
++-----------+-------------------+------+--------------------+-------------------+
+18 rows in set (0.00 sec)
+
+mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'student name', students.age as 'Age', count(teachers.firstName, ' ', teachers.lastName) as  from students left join teachers on students.teacherID= teachers.teacherID;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', ' ', teachers.lastName) as  from students left join teachers on students.teach' at line 1
+mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', count(teachers.firstName, ' ', teachers.lastName) as 'Teacher Name' from students left join teachers on students.teacherID= teachers.teacherID;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', ' ', teachers.lastName) as 'Teacher Name' from students left join teachers on ' at line 1
+mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', concat(teachers.firstName, ' ', teachers.lastName) as 'Teacher Name' from students left join teachers on students.teacherID= teachers.teacherID;
++-----------+-------------------+------+--------------+
+| studentID | Student Name      | Age  | Teacher Name |
++-----------+-------------------+------+--------------+
+|         1 | John Doe          |   25 | anil kumar   |
+|         2 | Jane Smith        |   30 | piyush kumar |
+|         3 | Michael Johnson   |   35 | janki kumari |
+|         4 | Emily Williams    |   28 | anil kumar   |
+|         5 | Christopher Brown |   32 | piyush kumar |
+|         6 | Amanda Jones      |   27 | janki kumari |
+|         7 | David Garcia      |   29 | anil kumar   |
+|         8 | Jennifer Martinez |   33 | piyush kumar |
+|         9 | James Hernandez   |   31 | janki kumari |
+|        10 | Mary Lopez        |   26 | anil kumar   |
+|        11 | Daniel Gonzalez   |   34 | piyush kumar |
+|        12 | Jessica Perez     |   36 | janki kumari |
+|        13 | Robert Wilson     |   37 | anil kumar   |
+|        14 | Patricia Davis    |   38 | piyush kumar |
+|        15 | Matthew Miller    |   39 | janki kumari |
+|        16 | Linda Taylor      |   40 | anil kumar   |
+|        17 | Barbara Anderson  |   41 | piyush kumar |
+|        18 | Richard Thomas    |   42 | janki kumari |
++-----------+-------------------+------+--------------+
+18 rows in set (0.00 sec)
+
+mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', concat(teachers.firstName, ' ', teachers.lastName) as 'Teacher Name' from students left join teachers on students.teacherID= teachers.teacherID limit 5 offset 0;
++-----------+-------------------+------+--------------+
+| studentID | Student Name      | Age  | Teacher Name |
++-----------+-------------------+------+--------------+
+|         1 | John Doe          |   25 | anil kumar   |
+|         2 | Jane Smith        |   30 | piyush kumar |
+|         3 | Michael Johnson   |   35 | janki kumari |
+|         4 | Emily Williams    |   28 | anil kumar   |
+|         5 | Christopher Brown |   32 | piyush kumar |
++-----------+-------------------+------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', concat(teachers.firstName, ' ', teachers.lastName) as 'Teacher Name' from students left join teachers on students.teacherID= teachers.teacherID limit 5 offset 5;
++-----------+-------------------+------+--------------+
+| studentID | Student Name      | Age  | Teacher Name |
++-----------+-------------------+------+--------------+
+|         6 | Amanda Jones      |   27 | janki kumari |
+|         7 | David Garcia      |   29 | anil kumar   |
+|         8 | Jennifer Martinez |   33 | piyush kumar |
+|         9 | James Hernandez   |   31 | janki kumari |
+|        10 | Mary Lopez        |   26 | anil kumar   |
++-----------+-------------------+------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', concat(teachers.firstName, ' ', teachers.lastName) as 'Teacher Name' from students left join teachers on students.teacherID= teachers.teacherID limit 5 offset 10;
++-----------+-----------------+------+--------------+
+| studentID | Student Name    | Age  | Teacher Name |
++-----------+-----------------+------+--------------+
+|        11 | Daniel Gonzalez |   34 | piyush kumar |
+|        12 | Jessica Perez   |   36 | janki kumari |
+|        13 | Robert Wilson   |   37 | anil kumar   |
+|        14 | Patricia Davis  |   38 | piyush kumar |
+|        15 | Matthew Miller  |   39 | janki kumari |
++-----------+-----------------+------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', concat(teachers.firstName, ' ', teachers.lastName) as 'Teacher Name' from students left join teachers on students.teacherID= teachers.teacherID limit 5 offset 15;
++-----------+------------------+------+--------------+
+| studentID | Student Name     | Age  | Teacher Name |
++-----------+------------------+------+--------------+
+|        16 | Linda Taylor     |   40 | anil kumar   |
+|        17 | Barbara Anderson |   41 | piyush kumar |
+|        18 | Richard Thomas   |   42 | janki kumari |
++-----------+------------------+------+--------------+
+3 rows in set (0.00 sec)
+
+
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+
+❓. show student name by concat and then age of student and which student study which subject?
+
+
+mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', teachers.subject from student
+s left join teachers on students.teacherID = teachers.teacherID;
++-----------+-------------------+------+---------+
+| studentID | Student Name      | Age  | subject |
++-----------+-------------------+------+---------+
+|         1 | John Doe          |   25 | maths   |
+|         2 | Jane Smith        |   30 | physics |
+|         3 | Michael Johnson   |   35 | english |
+|         4 | Emily Williams    |   28 | maths   |
+|         5 | Christopher Brown |   32 | physics |
+|         6 | Amanda Jones      |   27 | english |
+|         7 | David Garcia      |   29 | maths   |
+|         8 | Jennifer Martinez |   33 | physics |
+|         9 | James Hernandez   |   31 | english |
+|        10 | Mary Lopez        |   26 | maths   |
+|        11 | Daniel Gonzalez   |   34 | physics |
+|        12 | Jessica Perez     |   36 | english |
+|        13 | Robert Wilson     |   37 | maths   |
+|        14 | Patricia Davis    |   38 | physics |
+|        15 | Matthew Miller    |   39 | english |
+|        16 | Linda Taylor      |   40 | maths   |
+|        17 | Barbara Anderson  |   41 | physics |
+|        18 | Richard Thomas    |   42 | english |
++-----------+-------------------+------+---------+
+18 rows in set (0.00 sec)
+
+mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', teachers.subject from students left join teachers on students.teacherID = teachers.teacherID limit 5 offset 0;
++-----------+-------------------+------+---------+
+| studentID | Student Name      | Age  | subject |
++-----------+-------------------+------+---------+
+|         1 | John Doe          |   25 | maths   |
+|         2 | Jane Smith        |   30 | physics |
+|         3 | Michael Johnson   |   35 | english |
+|         4 | Emily Williams    |   28 | maths   |
+|         5 | Christopher Brown |   32 | physics |
++-----------+-------------------+------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', teachers.subject from students left join teachers on students.teacherID = teachers.teacherID limit 5 offset 5;
++-----------+-------------------+------+---------+
+| studentID | Student Name      | Age  | subject |
++-----------+-------------------+------+---------+
+|         6 | Amanda Jones      |   27 | english |
+|         7 | David Garcia      |   29 | maths   |
+|         8 | Jennifer Martinez |   33 | physics |
+|         9 | James Hernandez   |   31 | english |
+|        10 | Mary Lopez        |   26 | maths   |
++-----------+-------------------+------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', teachers.subject from students left join teachers on students.teacherID = teachers.teacherID limit 5 offset 10;
++-----------+-----------------+------+---------+
+| studentID | Student Name    | Age  | subject |
++-----------+-----------------+------+---------+
+|        11 | Daniel Gonzalez |   34 | physics |
+|        12 | Jessica Perez   |   36 | english |
+|        13 | Robert Wilson   |   37 | maths   |
+|        14 | Patricia Davis  |   38 | physics |
+|        15 | Matthew Miller  |   39 | english |
++-----------+-----------------+------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', teachers.subject from students left join teachers on students.teacherID = teachers.teacherID limit 5 offset 15;
++-----------+------------------+------+---------+
+| studentID | Student Name     | Age  | subject |
++-----------+------------------+------+---------+
+|        16 | Linda Taylor     |   40 | maths   |
+|        17 | Barbara Anderson |   41 | physics |
+|        18 | Richard Thomas   |   42 | english |
++-----------+------------------+------+---------+
+3 rows in set (0.00 sec)
+
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+
+❓. show students who study particular subject maths, physics or english?
+
+mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', teachers.subject from students left join teachers on students.teacherID = teachers.teacherID where teachers.subject='maths';
++-----------+----------------+------+---------+
+| studentID | Student Name   | Age  | subject |
++-----------+----------------+------+---------+
+|         1 | John Doe       |   25 | maths   |
+|         4 | Emily Williams |   28 | maths   |
+|         7 | David Garcia   |   29 | maths   |
+|        10 | Mary Lopez     |   26 | maths   |
+|        13 | Robert Wilson  |   37 | maths   |
+|        16 | Linda Taylor   |   40 | maths   |
++-----------+----------------+------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', teachers.subject from students left join teachers on students.teacherID = teachers.teacherID where teachers.subject='physics';
++-----------+-------------------+------+---------+
+| studentID | Student Name      | Age  | subject |
++-----------+-------------------+------+---------+
+|         2 | Jane Smith        |   30 | physics |
+|         5 | Christopher Brown |   32 | physics |
+|         8 | Jennifer Martinez |   33 | physics |
+|        11 | Daniel Gonzalez   |   34 | physics |
+|        14 | Patricia Davis    |   38 | physics |
+|        17 | Barbara Anderson  |   41 | physics |
++-----------+-------------------+------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', teachers.subject from students left join teachers on students.teacherID = teachers.teacherID where teachers.subject='english';
++-----------+-----------------+------+---------+
+| studentID | Student Name    | Age  | subject |
++-----------+-----------------+------+---------+
+|         3 | Michael Johnson |   35 | english |
+|         6 | Amanda Jones    |   27 | english |
+|         9 | James Hernandez |   31 | english |
+|        12 | Jessica Perez   |   36 | english |
+|        15 | Matthew Miller  |   39 | english |
+|        18 | Richard Thomas  |   42 | english |
++-----------+-----------------+------+---------+
+6 rows in set (0.00 sec)
+
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+
+❓. 
+
+
+
+
+
+
+
+

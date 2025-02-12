@@ -1,0 +1,1797 @@
+📝. Creation and Initial Setup
+-------------------------------
+
+// xampp from terminal
+cd c:\xampp\mysql\bin
+mysql.exe -u root --password
+
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.35 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| springjdbc         |
+| springorm          |
+| student_manage     |
+| sys                |
+| world              |
++--------------------+
+9 rows in set (0.01 sec)
+
+mysql> create database school;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| school             |
+| springjdbc         |
+| springorm          |
+| student_manage     |
+| sys                |
+| world              |
++--------------------+
+10 rows in set (0.00 sec)
+
+mysql> use school;
+Database changed
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> create table admission (studentID int auto_increment primary key, firstName varchar(100) not null, lastName varchar(100), phoneNo int unique not null, age int, dob timestamp, class int, section varchar(10), adhar_bool boolean not nul
+l default false);
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_school |
++------------------+
+| admission        |
++------------------+
+1 row in set (0.01 sec)
+
+mysql> desc admission;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| studentID  | int          | NO   | PRI | NULL    | auto_increment |
+| firstName  | varchar(100) | NO   |     | NULL    |                |
+| lastName   | varchar(100) | YES  |     | NULL    |                |
+| phoneNo    | int          | NO   | UNI | NULL    |                |
+| age        | int          | YES  |     | NULL    |                |
+| dob        | timestamp    | YES  |     | NULL    |                |
+| class      | int          | YES  |     | NULL    |                |
+| section    | varchar(10)  | YES  |     | NULL    |                |
+| adhar_bool | tinyint(1)   | NO   |     | 0       |                |
++------------+--------------+------+-----+---------+----------------+
+9 rows in set (0.02 sec)
+
+mysql>
+
+mysql> insert into admission (studentID, firstName, lastName, phoneNo, age, dob, class, section, adhar_bool) values (1, "Sumant", "Shah", 7488012323, 28, NOW(), 8, "B", 1);
+ERROR 1264 (22003): Out of range value for column 'phoneNo' at row 1
+mysql> alter table admission modify phoneNo int(10);
+Query OK, 0 rows affected, 1 warning (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> desc admission;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| studentID  | int          | NO   | PRI | NULL    | auto_increment |
+| firstName  | varchar(100) | NO   |     | NULL    |                |
+| lastName   | varchar(100) | YES  |     | NULL    |                |
+| phoneNo    | int          | YES  | UNI | NULL    |                |
+| age        | int          | YES  |     | NULL    |                |
+| dob        | timestamp    | YES  |     | NULL    |                |
+| class      | int          | YES  |     | NULL    |                |
+| section    | varchar(10)  | YES  |     | NULL    |                |
+| adhar_bool | tinyint(1)   | NO   |     | 0       |                |
++------------+--------------+------+-----+---------+----------------+
+9 rows in set (0.00 sec)
+
+mysql> insert into admission (studentID, firstName, lastName, phoneNo, age, dob, class, section, adhar_bool) values (1, "Sumant", "Shah", 7488012323, 28, NOW(), 8, "B", 1);
+ERROR 1264 (22003): Out of range value for column 'phoneNo' at row 1
+mysql> alter table admission modify phoneNo varchar(10);
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc admission;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| studentID  | int          | NO   | PRI | NULL    | auto_increment |
+| firstName  | varchar(100) | NO   |     | NULL    |                |
+| lastName   | varchar(100) | YES  |     | NULL    |                |
+| phoneNo    | varchar(10)  | YES  | UNI | NULL    |                |
+| age        | int          | YES  |     | NULL    |                |
+| dob        | timestamp    | YES  |     | NULL    |                |
+| class      | int          | YES  |     | NULL    |                |
+| section    | varchar(10)  | YES  |     | NULL    |                |
+| adhar_bool | tinyint(1)   | NO   |     | 0       |                |
++------------+--------------+------+-----+---------+----------------+
+9 rows in set (0.00 sec)
+
+mysql> insert into admission (studentID, firstName, lastName, phoneNo, age, dob, class, section, adhar_bool) values (1, "Sumant", "Shah", 7488012323, 28, NOW(), 8, "B", 1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from admission;
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah     | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+1 row in set (0.00 sec)
+
+mysql> insert into admission (firstName, lastName, phoneNo, age, dob, class, section, adhar_bool) values ("Vinay", "Kumar", 7466012323, 26, NOW(), 9, "A", 1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from admission;
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah     | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar    | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+2 rows in set (0.00 sec)
+
+minsert into admission values insert into admission (studentID, firstName, lastName, phoneNo, age, dob, class, section, adhar_bool) values (1, "Sumant", "Shah", 7488012323, 28, NOW(), 8, "B", 1);^C
+mysql> insert into admission values ("Ravi", "Shekhar", 6789546743, 22, NOW(), 8, "A", 0);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into admission values ("Ravi", "Shekhar", 6789546743, 22, NOW(), 8, "A", 1);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into admission values (3, "Ravi", "Shekhar", 6789546743, 22, NOW(), 8, "A", 1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from admission;
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah     | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar    | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         3 | Ravi      | Shekhar  | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+3 rows in set (0.00 sec)
+
+mysql>  
+
+mysql> INSERT INTO admission (firstName, lastName, phoneNo, age, dob, class, section, adhar_bool)
+    -> VALUES
+    -> ('John', 'Doe', CONCAT(SUBSTRING(REPLACE(UUID(), '-', ''), 1, 10)), 30, DATE_ADD(NOW(), INTERVAL FLOOR(RAND() * 365) DAY), 8, 'B', 1),
+    -> ('Jane', 'Smith', CONCAT(SUBSTRING(REPLACE(UUID(), '-', ''), 1, 10)), 25, DATE_ADD(NOW(), INTERVAL FLOOR(RAND() * 365) DAY), 7, 'C', 1),
+    -> ('Alice', 'Johnson', CONCAT(SUBSTRING(REPLACE(UUID(), '-', ''), 1, 10)), 28, DATE_ADD(NOW(), INTERVAL FLOOR(RAND() * 365) DAY), 9, 'A', 0),
+    -> ('Bob', 'Brown', CONCAT(SUBSTRING(REPLACE(UUID(), '-', ''), 1, 10)), 32, DATE_ADD(NOW(), INTERVAL FLOOR(RAND() * 365) DAY), 6, 'D', 1),
+    -> ('Emily', 'Williams', CONCAT(SUBSTRING(REPLACE(UUID(), '-', ''), 1, 10)), 29, DATE_ADD(NOW(), INTERVAL FLOOR(RAND() * 365) DAY), 10, 'E', 0),
+    -> -- Add more dummy records here
+    -> ('Mark', 'Taylor', CONCAT(SUBSTRING(REPLACE(UUID(), '-', ''), 1, 10)), 27, DATE_ADD(NOW(), INTERVAL FLOOR(RAND() * 365) DAY), 8, 'B', 1),
+    -> ('Emma', 'Martinez', CONCAT(SUBSTRING(REPLACE(UUID(), '-', ''), 1, 10)), 31, DATE_ADD(NOW(), INTERVAL FLOOR(RAND() * 365) DAY), 7, 'C', 1),
+    -> ('Oliver', 'White', CONCAT(SUBSTRING(REPLACE(UUID(), '-', ''), 1, 10)), 26, DATE_ADD(NOW(), INTERVAL FLOOR(RAND() * 365) DAY), 9, 'A', 0),
+    -> ('Sophia', 'Garcia', CONCAT(SUBSTRING(REPLACE(UUID(), '-', ''), 1, 10)), 33, DATE_ADD(NOW(), INTERVAL FLOOR(RAND() * 365) DAY), 6, 'D', 1),
+    -> ('Michael', 'Jones', CONCAT(SUBSTRING(REPLACE(UUID(), '-', ''), 1, 10)), 24, DATE_ADD(NOW(), INTERVAL FLOOR(RAND() * 365) DAY), 10, 'E', 0),
+    -> -- Add more dummy records here
+    -> ('William', 'Anderson', CONCAT(SUBSTRING(REPLACE(UUID(), '-', ''), 1, 10)), 30, DATE_ADD(NOW(), INTERVAL FLOOR(RAND() * 365) DAY), 8, 'B', 1),
+    -> ('Olivia', 'Thomas', CONCAT(SUBSTRING(REPLACE(UUID(), '-', ''), 1, 10)), 25, DATE_ADD(NOW(), INTERVAL FLOOR(RAND() * 365) DAY), 7, 'C', 1),
+    -> ('James', 'Hernandez', CONCAT(SUBSTRING(REPLACE(UUID(), '-', ''), 1, 10)), 28, DATE_ADD(NOW(), INTERVAL FLOOR(RAND() * 365) DAY), 9, 'A', 0),
+    -> ('Isabella', 'Lopez', CONCAT(SUBSTRING(REPLACE(UUID(), '-', ''), 1, 10)), 32, DATE_ADD(NOW(), INTERVAL FLOOR(RAND() * 365) DAY), 6, 'D', 1),
+    -> ('Liam', 'Scott', CONCAT(SUBSTRING(REPLACE(UUID(), '-', ''), 1, 10)), 29, DATE_ADD(NOW(), INTERVAL FLOOR(RAND() * 365) DAY), 10, 'E', 0);
+Query OK, 15 rows affected (0.03 sec)
+Records: 15  Duplicates: 0  Warnings: 0
+
+mysql> -- Add more dummy records here
+mysql> select * from admission;
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar     | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         3 | Ravi      | Shekhar   | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|         4 | John      | Doe       | 6e38c3bad0 |   30 | 2025-01-19 12:34:18 |     8 | B       |          1 |
+|         5 | Jane      | Smith     | 6e38fabbd0 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|         6 | Alice     | Johnson   | 6e390e07d0 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|         7 | Bob       | Brown     | 6e3910f7d0 |   32 | 2025-01-02 12:34:18 |     6 | D       |          1 |
+|         8 | Emily     | Williams  | 6e3912b5d0 |   29 | 2024-08-14 12:34:18 |    10 | E       |          0 |
+|         9 | Mark      | Taylor    | 6e39139ed0 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|        10 | Emma      | Martinez  | 6e391454d0 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
+|        11 | Oliver    | White     | 6e391528d0 |   26 | 2024-08-28 12:34:18 |     9 | A       |          0 |
+|        12 | Sophia    | Garcia    | 6e3915d5d0 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
+|        13 | Michael   | Jones     | 6e39168ad0 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|        14 | William   | Anderson  | 6e3918c2d0 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|        15 | Olivia    | Thomas    | 6e3919f4d0 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|        16 | James     | Hernandez | 6e391ad4d0 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|        17 | Isabella  | Lopez     | 6e391b80d0 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
+|        18 | Liam      | Scott     | 6e391c34d0 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+18 rows in set (0.00 sec)
+
+mysql> update admission set phoneNo = "1111111111" where studentID=4;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update admission set phoneNo = "5555555555" where studentID=5;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update admission set phoneNo = "6666666666" where studentID=6;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update admission set phoneNo = "7777777777" where studentID=7;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update admission set phoneNo = "8888888888" where studentID=8;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update admission set phoneNo = "9999999999" where studentID=9;
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update admission set phoneNo = "1010101010" where studentID=10;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update admission set phoneNo = "4587097896" where studentID=11;
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update admission set phoneNo = "1212121212" where studentID=12;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update admission set phoneNo = "1313131313" where studentID=13;
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update admission set phoneNo = "1414141414" where studentID=14;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update admission set phoneNo = "1515151515" where studentID=15;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update admission set phoneNo = "1616161616" where studentID=16;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update admission set phoneNo = "1717171717" where studentID=17;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update admission set phoneNo = "1818181818" where studentID=18;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from admission;
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar     | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         3 | Ravi      | Shekhar   | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|         4 | John      | Doe       | 1111111111 |   30 | 2025-01-19 12:34:18 |     8 | B       |          1 |
+|         5 | Jane      | Smith     | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|         7 | Bob       | Brown     | 7777777777 |   32 | 2025-01-02 12:34:18 |     6 | D       |          1 |
+|         8 | Emily     | Williams  | 8888888888 |   29 | 2024-08-14 12:34:18 |    10 | E       |          0 |
+|         9 | Mark      | Taylor    | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|        10 | Emma      | Martinez  | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
+|        11 | Oliver    | White     | 4587097896 |   26 | 2024-08-28 12:34:18 |     9 | A       |          0 |
+|        12 | Sophia    | Garcia    | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
+|        13 | Michael   | Jones     | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+18 rows in set (0.00 sec)
+
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+
+❓. Count the total number of documents in the table?
+
+mysql> select count(studentID) from admission;
++------------------+
+| count(studentID) |
++------------------+
+|               18 |
++------------------+
+1 row in set (0.01 sec)
+
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+
+❓. Show the count header as Total Students in the output table?
+
+mysql> select count(studentID) as Total_Students from admission;
++----------------+
+| Total_Students |
++----------------+
+|             18 |
++----------------+
+1 row in set (0.00 sec)
+
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+
+❓. Show all the documents?
+
+mysql> select * from admission;
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar     | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         3 | Ravi      | Shekhar   | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|         4 | John      | Doe       | 1111111111 |   30 | 2025-01-19 12:34:18 |     8 | B       |          1 |
+|         5 | Jane      | Smith     | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|         7 | Bob       | Brown     | 7777777777 |   32 | 2025-01-02 12:34:18 |     6 | D       |          1 |
+|         8 | Emily     | Williams  | 8888888888 |   29 | 2024-08-14 12:34:18 |    10 | E       |          0 |
+|         9 | Mark      | Taylor    | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|        10 | Emma      | Martinez  | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
+|        11 | Oliver    | White     | 4587097896 |   26 | 2024-08-28 12:34:18 |     9 | A       |          0 |
+|        12 | Sophia    | Garcia    | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
+|        13 | Michael   | Jones     | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+18 rows in set (0.00 sec)
+
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+
+❓. Apply pagination to the document?
+
+mysql> select * from admission limit 5;
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah     | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar    | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         3 | Ravi      | Shekhar  | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|         4 | John      | Doe      | 1111111111 |   30 | 2025-01-19 12:34:18 |     8 | B       |          1 |
+|         5 | Jane      | Smith    | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from admission limit 5 skip 5;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'skip 5' at line 1
+mysql> select * from admission limit 5 offset 5;
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+|         6 | Alice     | Johnson  | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|         7 | Bob       | Brown    | 7777777777 |   32 | 2025-01-02 12:34:18 |     6 | D       |          1 |
+|         8 | Emily     | Williams | 8888888888 |   29 | 2024-08-14 12:34:18 |    10 | E       |          0 |
+|         9 | Mark      | Taylor   | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|        10 | Emma      | Martinez | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from admission limit 5 offset 10;
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+|        11 | Oliver    | White    | 4587097896 |   26 | 2024-08-28 12:34:18 |     9 | A       |          0 |
+|        12 | Sophia    | Garcia   | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
+|        13 | Michael   | Jones    | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|        14 | William   | Anderson | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|        15 | Olivia    | Thomas   | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from admission limit 5 offset 15;
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+3 rows in set (0.00 sec)
+
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+
+❓. Apply pagination to the document with total count also shown in the document?
+
+mysql> select *, (select count(*) from admission) AS total_count from admission;
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+-------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool | total_count |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+-------------+
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |          18 |
+|         2 | Vinay     | Kumar     | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |          18 |
+|         3 | Ravi      | Shekhar   | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |          18 |
+|         4 | John      | Doe       | 1111111111 |   30 | 2025-01-19 12:34:18 |     8 | B       |          1 |          18 |
+|         5 | Jane      | Smith     | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |          18 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |          18 |
+|         7 | Bob       | Brown     | 7777777777 |   32 | 2025-01-02 12:34:18 |     6 | D       |          1 |          18 |
+|         8 | Emily     | Williams  | 8888888888 |   29 | 2024-08-14 12:34:18 |    10 | E       |          0 |          18 |
+|         9 | Mark      | Taylor    | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |          18 |
+|        10 | Emma      | Martinez  | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |          18 |
+|        11 | Oliver    | White     | 4587097896 |   26 | 2024-08-28 12:34:18 |     9 | A       |          0 |          18 |
+|        12 | Sophia    | Garcia    | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |          18 |
+|        13 | Michael   | Jones     | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |          18 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |          18 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |          18 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |          18 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |          18 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |          18 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+-------------+
+18 rows in set (0.00 sec)
+
+mysql> select *, (select count(*) from admission) AS total_count from admission limit 5;
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+-------------+
+| studentID | firstName | lastName | phoneNo    | age  | dob                 | class | section | adhar_bool | total_count |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+-------------+
+|         1 | Sumant    | Shah     | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |          18 |
+|         2 | Vinay     | Kumar    | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |          18 |
+|         3 | Ravi      | Shekhar  | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |          18 |
+|         4 | John      | Doe      | 1111111111 |   30 | 2025-01-19 12:34:18 |     8 | B       |          1 |          18 |
+|         5 | Jane      | Smith    | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |          18 |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select *, (select count(*) from admission) AS total_count from admission limit 5 offset 5;
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+-------------+
+| studentID | firstName | lastName | phoneNo    | age  | dob                 | class | section | adhar_bool | total_count |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+-------------+
+|         6 | Alice     | Johnson  | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |          18 |
+|         7 | Bob       | Brown    | 7777777777 |   32 | 2025-01-02 12:34:18 |     6 | D       |          1 |          18 |
+|         8 | Emily     | Williams | 8888888888 |   29 | 2024-08-14 12:34:18 |    10 | E       |          0 |          18 |
+|         9 | Mark      | Taylor   | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |          18 |
+|        10 | Emma      | Martinez | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |          18 |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select *, (select count(*) from admission) AS total_count from admission limit 5 offset 10;
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+-------------+
+| studentID | firstName | lastName | phoneNo    | age  | dob                 | class | section | adhar_bool | total_count |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+-------------+
+|        11 | Oliver    | White    | 4587097896 |   26 | 2024-08-28 12:34:18 |     9 | A       |          0 |          18 |
+|        12 | Sophia    | Garcia   | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |          18 |
+|        13 | Michael   | Jones    | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |          18 |
+|        14 | William   | Anderson | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |          18 |
+|        15 | Olivia    | Thomas   | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |          18 |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select *, (select count(*) from admission) AS total_count from admission limit 5 offset 15;
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+-------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool | total_count |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+-------------+
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |          18 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |          18 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |          18 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+-------------+
+3 rows in set (0.00 sec)
+
+
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+
+
+❓. show all documents where firstName matches any characters with pagination?
+
+mysql> select * from admission where firstName like '%J%';
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         4 | John      | Doe       | 1111111111 |   30 | 2025-01-19 12:34:18 |     8 | B       |          1 |
+|         5 | Jane      | Smith     | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from admission where firstName like '%A%';
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar     | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         3 | Ravi      | Shekhar   | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|         5 | Jane      | Smith     | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|         9 | Mark      | Taylor    | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|        10 | Emma      | Martinez  | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
+|        12 | Sophia    | Garcia    | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
+|        13 | Michael   | Jones     | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+14 rows in set (0.00 sec)
+
+mysql> select * from admission where firstName like '%An%';
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah     | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         5 | Jane      | Smith    | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from admission where firstName like '%a%' limit 5 offset 0;
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah     | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar    | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         3 | Ravi      | Shekhar  | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|         5 | Jane      | Smith    | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|         6 | Alice     | Johnson  | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from admission where firstName like '%a%' limit 5 offset 5;
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+|         9 | Mark      | Taylor   | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|        10 | Emma      | Martinez | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
+|        12 | Sophia    | Garcia   | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
+|        13 | Michael   | Jones    | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|        14 | William   | Anderson | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from admission where firstName like '%a%' limit 5 offset 10;
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+4 rows in set (0.00 sec)
+
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+
+❓. show all documents where any of the varchar columns matches with any characters with pagination?
+
+mysql> select * from admission where firstName like '%a%' or lastName like '%a%' or section like '%a%';
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar     | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         3 | Ravi      | Shekhar   | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|         5 | Jane      | Smith     | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|         8 | Emily     | Williams  | 8888888888 |   29 | 2024-08-14 12:34:18 |    10 | E       |          0 |
+|         9 | Mark      | Taylor    | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|        10 | Emma      | Martinez  | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
+|        11 | Oliver    | White     | 4587097896 |   26 | 2024-08-28 12:34:18 |     9 | A       |          0 |
+|        12 | Sophia    | Garcia    | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
+|        13 | Michael   | Jones     | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+16 rows in set (0.00 sec)
+
+mysql> select * from admission where firstName like '%a%' or lastName like '%a%' or section like '%a%' limit 5 offset 0;
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah     | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar    | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         3 | Ravi      | Shekhar  | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|         5 | Jane      | Smith    | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|         6 | Alice     | Johnson  | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from admission where firstName like '%a%' or lastName like '%a%' or section like '%a%' limit 5 offset 5;
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+|         8 | Emily     | Williams | 8888888888 |   29 | 2024-08-14 12:34:18 |    10 | E       |          0 |
+|         9 | Mark      | Taylor   | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|        10 | Emma      | Martinez | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
+|        11 | Oliver    | White    | 4587097896 |   26 | 2024-08-28 12:34:18 |     9 | A       |          0 |
+|        12 | Sophia    | Garcia   | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from admission where firstName like '%a%' or lastName like '%a%' or section like '%a%' limit 5 offset 10;
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|        13 | Michael   | Jones     | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from admission where firstName like '%a%' or lastName like '%a%' or section like '%a%' limit 5 offset 15;
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+|        18 | Liam      | Scott    | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+1 row in set (0.00 sec)
+
+
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+
+❓. show all documents where any of the all columns matches with any characters with pagination?
+
+mysql> select * from admission where firstName like '%a%' or lastName like '%a%' or phoneNo like '%a%' or age like '%a%' or class like '%a%' or section like '%a%' or adhar_bool like '%a%';
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar     | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         3 | Ravi      | Shekhar   | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|         5 | Jane      | Smith     | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|         8 | Emily     | Williams  | 8888888888 |   29 | 2024-08-14 12:34:18 |    10 | E       |          0 |
+|         9 | Mark      | Taylor    | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|        10 | Emma      | Martinez  | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
+|        11 | Oliver    | White     | 4587097896 |   26 | 2024-08-28 12:34:18 |     9 | A       |          0 |
+|        12 | Sophia    | Garcia    | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
+|        13 | Michael   | Jones     | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+16 rows in set (0.00 sec)
+
+mysql> select * from admission where firstName like '%a%' or lastName like '%a%' or phoneNo like '%a%' or age like '%a%' or class like '%a%' or section like '%a%' or adhar_bool like '%a%' limit 5 offset 0;
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah     | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar    | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         3 | Ravi      | Shekhar  | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|         5 | Jane      | Smith    | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|         6 | Alice     | Johnson  | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from admission where firstName like '%a%' or lastName like '%a%' or phoneNo like '%a%' or age like '%a%' or class like '%a%' or section like '%a%' or adhar_bool like '%a%' limit 5 offset 5;
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+|         8 | Emily     | Williams | 8888888888 |   29 | 2024-08-14 12:34:18 |    10 | E       |          0 |
+|         9 | Mark      | Taylor   | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|        10 | Emma      | Martinez | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
+|        11 | Oliver    | White    | 4587097896 |   26 | 2024-08-28 12:34:18 |     9 | A       |          0 |
+|        12 | Sophia    | Garcia   | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from admission where firstName like '%a%' or lastName like '%a%' or phoneNo like '%a%' or age like '%a%' or class like '%a%' or section like '%a%' or adhar_bool like '%a%' limit 5 offset 10;
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|        13 | Michael   | Jones     | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from admission where firstName like '%a%' or lastName like '%a%' or phoneNo like '%a%' or age like '%a%' or class like '%a%' or section like '%a%' or adhar_bool like '%a%' limit 5 offset 15;
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+|        18 | Liam      | Scott    | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+1 row in set (0.00 sec)
+
+
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+
+
+❓. Where clause with dob?
+
+mysql> select * from admission where dob like '%2024%';
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar     | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         3 | Ravi      | Shekhar   | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|         5 | Jane      | Smith     | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|         8 | Emily     | Williams  | 8888888888 |   29 | 2024-08-14 12:34:18 |    10 | E       |          0 |
+|         9 | Mark      | Taylor    | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|        10 | Emma      | Martinez  | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
+|        11 | Oliver    | White     | 4587097896 |   26 | 2024-08-28 12:34:18 |     9 | A       |          0 |
+|        12 | Sophia    | Garcia    | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
+|        13 | Michael   | Jones     | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+16 rows in set (0.00 sec)
+
+mysql> select * from admission where dob like '%2024-02-21%';
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah     | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar    | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         3 | Ravi      | Shekhar  | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from admission where dob like '%11:43:09%';
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah     | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from admission where dob like '%02%';
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar     | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         3 | Ravi      | Shekhar   | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|         4 | John      | Doe       | 1111111111 |   30 | 2025-01-19 12:34:18 |     8 | B       |          1 |
+|         5 | Jane      | Smith     | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|         7 | Bob       | Brown     | 7777777777 |   32 | 2025-01-02 12:34:18 |     6 | D       |          1 |
+|         8 | Emily     | Williams  | 8888888888 |   29 | 2024-08-14 12:34:18 |    10 | E       |          0 |
+|         9 | Mark      | Taylor    | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|        10 | Emma      | Martinez  | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
+|        11 | Oliver    | White     | 4587097896 |   26 | 2024-08-28 12:34:18 |     9 | A       |          0 |
+|        12 | Sophia    | Garcia    | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
+|        13 | Michael   | Jones     | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+18 rows in set (0.00 sec)
+
+mysql> select * from admission where dob like '%09%';
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah     | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|        10 | Emma      | Martinez | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from admission where dob like '%24%';
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar     | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         3 | Ravi      | Shekhar   | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|         5 | Jane      | Smith     | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|         8 | Emily     | Williams  | 8888888888 |   29 | 2024-08-14 12:34:18 |    10 | E       |          0 |
+|         9 | Mark      | Taylor    | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|        10 | Emma      | Martinez  | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
+|        11 | Oliver    | White     | 4587097896 |   26 | 2024-08-28 12:34:18 |     9 | A       |          0 |
+|        12 | Sophia    | Garcia    | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
+|        13 | Michael   | Jones     | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+16 rows in set (0.00 sec)
+
+mysql> select * from admission where dob like '%34%';
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         4 | John      | Doe       | 1111111111 |   30 | 2025-01-19 12:34:18 |     8 | B       |          1 |
+|         5 | Jane      | Smith     | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|         7 | Bob       | Brown     | 7777777777 |   32 | 2025-01-02 12:34:18 |     6 | D       |          1 |
+|         8 | Emily     | Williams  | 8888888888 |   29 | 2024-08-14 12:34:18 |    10 | E       |          0 |
+|         9 | Mark      | Taylor    | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|        10 | Emma      | Martinez  | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
+|        11 | Oliver    | White     | 4587097896 |   26 | 2024-08-28 12:34:18 |     9 | A       |          0 |
+|        12 | Sophia    | Garcia    | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
+|        13 | Michael   | Jones     | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+15 rows in set (0.00 sec)
+
+mysql> select * from admission where dob like '%17%';
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+1 row in set (0.00 sec)
+
+
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+
+❓. Age selected where clause where age is specific value.
+
+mysql> select * from admission where age = 28;
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from admission where age = 31;
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+|        10 | Emma      | Martinez | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+1 row in set (0.00 sec)
+
+
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+
+
+❓. select all document where age is in between 20 - 30 ?
+
+mysql> select * from admission where age between 20 and 30;
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar     | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         3 | Ravi      | Shekhar   | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|         4 | John      | Doe       | 1111111111 |   30 | 2025-01-19 12:34:18 |     8 | B       |          1 |
+|         5 | Jane      | Smith     | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|         8 | Emily     | Williams  | 8888888888 |   29 | 2024-08-14 12:34:18 |    10 | E       |          0 |
+|         9 | Mark      | Taylor    | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|        11 | Oliver    | White     | 4587097896 |   26 | 2024-08-28 12:34:18 |     9 | A       |          0 |
+|        13 | Michael   | Jones     | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+14 rows in set (0.00 sec)
+
+mysql> select * from admission where age between 25 and 30;
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar     | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         4 | John      | Doe       | 1111111111 |   30 | 2025-01-19 12:34:18 |     8 | B       |          1 |
+|         5 | Jane      | Smith     | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|         8 | Emily     | Williams  | 8888888888 |   29 | 2024-08-14 12:34:18 |    10 | E       |          0 |
+|         9 | Mark      | Taylor    | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|        11 | Oliver    | White     | 4587097896 |   26 | 2024-08-28 12:34:18 |     9 | A       |          0 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+12 rows in set (0.00 sec)
+
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+
+
+❓. count how many students are there in every class using group by?
+
+mysql> select count(studentID) from admission group by class;
++------------------+
+| count(studentID) |
++------------------+
+|                5 |
+|                4 |
+|                3 |
+|                3 |
+|                3 |
++------------------+
+5 rows in set (0.00 sec)
+
+mysql> select count(studentID), class from admission group by class;
++------------------+-------+
+| count(studentID) | class |
++------------------+-------+
+|                5 |     8 |
+|                4 |     9 |
+|                3 |     7 |
+|                3 |     6 |
+|                3 |    10 |
++------------------+-------+
+5 rows in set (0.00 sec)
+
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+
+❓. count how many students are there in every section using group by?
+
+mysql> select count(studentID), section from admission group by section;
++------------------+---------+
+| count(studentID) | section |
++------------------+---------+
+|                4 | B       |
+|                5 | A       |
+|                3 | C       |
+|                3 | D       |
+|                3 | E       |
++------------------+---------+
+5 rows in set (0.00 sec)
+
+
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+
+
+❓. find all the distinct class (i.e. currently how many different classes are there in the school)
+
+mysql> select distinct class from admission;
++-------+
+| class |
++-------+
+|     8 |
+|     9 |
+|     7 |
+|     6 |
+|    10 |
++-------+
+5 rows in set (0.00 sec)
+
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+
+❓. find all the distinct section (i.e. currently how many different sections are there in the school)
+
+mysql> select distinct section from admission;
++---------+
+| section |
++---------+
+| B       |
+| A       |
+| C       |
+| D       |
+| E       |
++---------+
+5 rows in set (0.00 sec)
+
+
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+
+❓. find the different classes and their sections are there in the school?
+
+mysql> select distinct section, class from admission;
++---------+-------+
+| section | class |
++---------+-------+
+| B       |     8 |
+| A       |     9 |
+| A       |     8 |
+| C       |     7 |
+| D       |     6 |
+| E       |    10 |
++---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select distinct section, class from admission order by class;
++---------+-------+
+| section | class |
++---------+-------+
+| D       |     6 |
+| C       |     7 |
+| A       |     8 |
+| B       |     8 |
+| A       |     9 |
+| E       |    10 |
++---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select distinct class, section from admission order by class;
++-------+---------+
+| class | section |
++-------+---------+
+|     6 | D       |
+|     7 | C       |
+|     8 | A       |
+|     8 | B       |
+|     9 | A       |
+|    10 | E       |
++-------+---------+
+6 rows in set (0.00 sec)
+
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+
+❓. show how many students are there in different classes with sections?
+
+mysql> select count(studentID), class, section from admission group by class, section;
++------------------+-------+---------+
+| count(studentID) | class | section |
++------------------+-------+---------+
+|                4 |     8 | B       |
+|                4 |     9 | A       |
+|                1 |     8 | A       |
+|                3 |     7 | C       |
+|                3 |     6 | D       |
+|                3 |    10 | E       |
++------------------+-------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select count(studentID), class, section from admission group by class, section order by class;
++------------------+-------+---------+
+| count(studentID) | class | section |
++------------------+-------+---------+
+|                3 |     6 | D       |
+|                3 |     7 | C       |
+|                1 |     8 | A       |
+|                4 |     8 | B       |
+|                4 |     9 | A       |
+|                3 |    10 | E       |
++------------------+-------+---------+
+6 rows in set (0.00 sec)
+
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+
+❓. show the list of student whose age is certain values with IN operator?
+
+mysql> select * from admission where age in (20, 22);
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+|         3 | Ravi      | Shekhar  | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from admission where age in (20, 22, 28, 29);
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         3 | Ravi      | Shekhar   | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|         8 | Emily     | Williams  | 8888888888 |   29 | 2024-08-14 12:34:18 |    10 | E       |          0 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+6 rows in set (0.00 sec)
+
+
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+
+❓. show the count of the student whose age is certain values in school as well as between certain values?
+
+mysql> select count(studentID) from admission where age in (20, 22, 28, 29) group by age;
++------------------+
+| count(studentID) |
++------------------+
+|                3 |
+|                1 |
+|                2 |
++------------------+
+3 rows in set (0.00 sec)
+
+mysql> select count(studentID), age from admission where age in (20, 22, 28, 29) group by age;
++------------------+------+
+| count(studentID) | age  |
++------------------+------+
+|                3 |   28 |
+|                1 |   22 |
+|                2 |   29 |
++------------------+------+
+3 rows in set (0.00 sec)
+
+mysql> select count(studentID), age from admission where age in (20, 22, 28, 29) group by age order by age;
++------------------+------+
+| count(studentID) | age  |
++------------------+------+
+|                1 |   22 |
+|                3 |   28 |
+|                2 |   29 |
++------------------+------+
+3 rows in set (0.00 sec)
+
+mysql> select count(studentID), age from admission where age between 27 and 30 group by age order by age;
++------------------+------+
+| count(studentID) | age  |
++------------------+------+
+|                1 |   27 |
+|                3 |   28 |
+|                2 |   29 |
+|                2 |   30 |
++------------------+------+
+4 rows in set (0.00 sec)
+
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+
+
+
+
+
+
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+
+
+
+mysql> select count(studentID),sum(age), class from admission group by class;
++------------------+----------+-------+
+| count(studentID) | sum(age) | class |
++------------------+----------+-------+
+|                5 |      137 |     8 |
+|                4 |      108 |     9 |
+|                3 |       81 |     7 |
+|                3 |       97 |     6 |
+|                3 |       82 |    10 |
++------------------+----------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from admission order by age;
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         3 | Ravi      | Shekhar   | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|        13 | Michael   | Jones     | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|         5 | Jane      | Smith     | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|         2 | Vinay     | Kumar     | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|        11 | Oliver    | White     | 4587097896 |   26 | 2024-08-28 12:34:18 |     9 | A       |          0 |
+|         9 | Mark      | Taylor    | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|         8 | Emily     | Williams  | 8888888888 |   29 | 2024-08-14 12:34:18 |    10 | E       |          0 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
+|         4 | John      | Doe       | 1111111111 |   30 | 2025-01-19 12:34:18 |     8 | B       |          1 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|        10 | Emma      | Martinez  | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
+|         7 | Bob       | Brown     | 7777777777 |   32 | 2025-01-02 12:34:18 |     6 | D       |          1 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
+|        12 | Sophia    | Garcia    | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+18 rows in set (0.00 sec)
+
+mysql> select * from admission order by class;
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         7 | Bob       | Brown     | 7777777777 |   32 | 2025-01-02 12:34:18 |     6 | D       |          1 |
+|        12 | Sophia    | Garcia    | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
+|         5 | Jane      | Smith     | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|        10 | Emma      | Martinez  | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         3 | Ravi      | Shekhar   | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|         4 | John      | Doe       | 1111111111 |   30 | 2025-01-19 12:34:18 |     8 | B       |          1 |
+|         9 | Mark      | Taylor    | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar     | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|        11 | Oliver    | White     | 4587097896 |   26 | 2024-08-28 12:34:18 |     9 | A       |          0 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|         8 | Emily     | Williams  | 8888888888 |   29 | 2024-08-14 12:34:18 |    10 | E       |          0 |
+|        13 | Michael   | Jones     | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+18 rows in set (0.00 sec)
+
+mysql> select sum(age) from admission where class=8 order by class;
++----------+
+| sum(age) |
++----------+
+|      137 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(studentID),sum(age), max(age) class from admission group by class;
++------------------+----------+-------+
+| count(studentID) | sum(age) | class |
++------------------+----------+-------+
+|                5 |      137 |    30 |
+|                4 |      108 |    28 |
+|                3 |       81 |    31 |
+|                3 |       97 |    33 |
+|                3 |       82 |    29 |
++------------------+----------+-------+
+5 rows in set, 1 warning (0.00 sec)
+
+mysql> select count(studentID),sum(age), max(age), class from admission group by class;
++------------------+----------+----------+-------+
+| count(studentID) | sum(age) | max(age) | class |
++------------------+----------+----------+-------+
+|                5 |      137 |       30 |     8 |
+|                4 |      108 |       28 |     9 |
+|                3 |       81 |       31 |     7 |
+|                3 |       97 |       33 |     6 |
+|                3 |       82 |       29 |    10 |
++------------------+----------+----------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select count(studentID),sum(age), class from admission group by class;
++------------------+----------+-------+
+| count(studentID) | sum(age) | class |
++------------------+----------+-------+
+|                5 |      137 |     8 |
+|                4 |      108 |     9 |
+|                3 |       81 |     7 |
+|                3 |       97 |     6 |
+|                3 |       82 |    10 |
++------------------+----------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from admission order by age;
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         3 | Ravi      | Shekhar   | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|        13 | Michael   | Jones     | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|         5 | Jane      | Smith     | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|         2 | Vinay     | Kumar     | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|        11 | Oliver    | White     | 4587097896 |   26 | 2024-08-28 12:34:18 |     9 | A       |          0 |
+|         9 | Mark      | Taylor    | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|         8 | Emily     | Williams  | 8888888888 |   29 | 2024-08-14 12:34:18 |    10 | E       |          0 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
+|         4 | John      | Doe       | 1111111111 |   30 | 2025-01-19 12:34:18 |     8 | B       |          1 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|        10 | Emma      | Martinez  | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
+|         7 | Bob       | Brown     | 7777777777 |   32 | 2025-01-02 12:34:18 |     6 | D       |          1 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
+|        12 | Sophia    | Garcia    | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+18 rows in set (0.00 sec)
+
+mysql> select * from admission order by class;
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         7 | Bob       | Brown     | 7777777777 |   32 | 2025-01-02 12:34:18 |     6 | D       |          1 |
+|        12 | Sophia    | Garcia    | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
+|         5 | Jane      | Smith     | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|        10 | Emma      | Martinez  | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         3 | Ravi      | Shekhar   | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|         4 | John      | Doe       | 1111111111 |   30 | 2025-01-19 12:34:18 |     8 | B       |          1 |
+|         9 | Mark      | Taylor    | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar     | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|        11 | Oliver    | White     | 4587097896 |   26 | 2024-08-28 12:34:18 |     9 | A       |          0 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|         8 | Emily     | Williams  | 8888888888 |   29 | 2024-08-14 12:34:18 |    10 | E       |          0 |
+|        13 | Michael   | Jones     | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+18 rows in set (0.00 sec)
+
+mysql> select sum(age) from admission where class=8 order by class;
++----------+
+| sum(age) |
++----------+
+|      137 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(studentID),sum(age), max(age) class from admission group by class;
++------------------+----------+-------+
+| count(studentID) | sum(age) | class |
++------------------+----------+-------+
+|                5 |      137 |    30 |
+|                4 |      108 |    28 |
+|                3 |       81 |    31 |
+|                3 |       97 |    33 |
+|                3 |       82 |    29 |
++------------------+----------+-------+
+5 rows in set, 1 warning (0.00 sec)
+
+mysql> select count(studentID),sum(age), max(age), class from admission group by class;
++------------------+----------+----------+-------+
+| count(studentID) | sum(age) | max(age) | class |
++------------------+----------+----------+-------+
+|                5 |      137 |       30 |     8 |
+|                4 |      108 |       28 |     9 |
+|                3 |       81 |       31 |     7 |
+|                3 |       97 |       33 |     6 |
+|                3 |       82 |       29 |    10 |
++------------------+----------+----------+-------+
+5 rows in set (0.00 sec)
+
+mysql>mysql> select * from admission where firstName like '%a%' or age like '%a%';
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar     | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         3 | Ravi      | Shekhar   | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|         5 | Jane      | Smith     | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|         9 | Mark      | Taylor    | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|        10 | Emma      | Martinez  | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
+|        12 | Sophia    | Garcia    | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
+|        13 | Michael   | Jones     | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+14 rows in set (0.00 sec)
+
+🔴mysql> select * from admission where firstName like '%a%' and age like '%a%';
+Empty set (0.00 sec)
+
+🔴mysql> select * from admission where firstName like '%a%' and age like 28;
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+3 rows in set (0.00 sec)
+
+🔴mysql> select * from admission where firstName like '%a%' and age like '%28%';
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+3 rows in set (0.00 sec)
+
+🔴mysql> select * from admission where firstName like '%a%' or age like '%28%';
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar     | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         3 | Ravi      | Shekhar   | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|         5 | Jane      | Smith     | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|         9 | Mark      | Taylor    | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|        10 | Emma      | Martinez  | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
+|        12 | Sophia    | Garcia    | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
+|        13 | Michael   | Jones     | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+14 rows in set (0.00 sec)
+
+🔴mysql> select * from admission where firstName like '%28%' or age like '%28%';
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+3 rows in set (0.00 sec)
+
+🔴mysql> select * from admission where firstName like '%28%' or age like '%a%';
+Empty set (0.00 sec)
+
+🔴mysql> select * from admission where firstName like '%a%' or age like '%a%';
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar     | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         3 | Ravi      | Shekhar   | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|         5 | Jane      | Smith     | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|         9 | Mark      | Taylor    | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|        10 | Emma      | Martinez  | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
+|        12 | Sophia    | Garcia    | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
+|        13 | Michael   | Jones     | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+14 rows in set (0.00 sec)
+
+🔴mysql> select * from admission where firstName like '%a%' or dob like '%a%';
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar     | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         3 | Ravi      | Shekhar   | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|         5 | Jane      | Smith     | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|         9 | Mark      | Taylor    | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|        10 | Emma      | Martinez  | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
+|        12 | Sophia    | Garcia    | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
+|        13 | Michael   | Jones     | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+14 rows in set (0.00 sec)
+
+🔴mysql> select * from admission where firstName like '%a%' or dob like '%02%';
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar     | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         3 | Ravi      | Shekhar   | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|         4 | John      | Doe       | 1111111111 |   30 | 2025-01-19 12:34:18 |     8 | B       |          1 |
+|         5 | Jane      | Smith     | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|         7 | Bob       | Brown     | 7777777777 |   32 | 2025-01-02 12:34:18 |     6 | D       |          1 |
+|         8 | Emily     | Williams  | 8888888888 |   29 | 2024-08-14 12:34:18 |    10 | E       |          0 |
+|         9 | Mark      | Taylor    | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|        10 | Emma      | Martinez  | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
+|        11 | Oliver    | White     | 4587097896 |   26 | 2024-08-28 12:34:18 |     9 | A       |          0 |
+|        12 | Sophia    | Garcia    | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
+|        13 | Michael   | Jones     | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+18 rows in set (0.00 sec)
+
+🔴mysql> select * from admission where dob like '%02%';
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar     | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         3 | Ravi      | Shekhar   | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|         4 | John      | Doe       | 1111111111 |   30 | 2025-01-19 12:34:18 |     8 | B       |          1 |
+|         5 | Jane      | Smith     | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|         7 | Bob       | Brown     | 7777777777 |   32 | 2025-01-02 12:34:18 |     6 | D       |          1 |
+|         8 | Emily     | Williams  | 8888888888 |   29 | 2024-08-14 12:34:18 |    10 | E       |          0 |
+|         9 | Mark      | Taylor    | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|        10 | Emma      | Martinez  | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
+|        11 | Oliver    | White     | 4587097896 |   26 | 2024-08-28 12:34:18 |     9 | A       |          0 |
+|        12 | Sophia    | Garcia    | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
+|        13 | Michael   | Jones     | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+18 rows in set (0.00 sec)
+
+🔴mysql> select * from admission where dob like '%2024-02-21 11:43:09%';
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah     | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+1 row in set (0.00 sec)
+
+🔴mysql> select * from admission where dob like '%2024-02-21%';
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah     | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar    | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         3 | Ravi      | Shekhar  | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
++-----------+-----------+----------+------------+------+---------------------+-------+---------+------------+
+3 rows in set (0.00 sec)
+
+🔴mysql> select * from admission where firstName like '%a%' or dob like '%2024%';
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar     | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         3 | Ravi      | Shekhar   | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|         5 | Jane      | Smith     | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|         8 | Emily     | Williams  | 8888888888 |   29 | 2024-08-14 12:34:18 |    10 | E       |          0 |
+|         9 | Mark      | Taylor    | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|        10 | Emma      | Martinez  | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
+|        11 | Oliver    | White     | 4587097896 |   26 | 2024-08-28 12:34:18 |     9 | A       |          0 |
+|        12 | Sophia    | Garcia    | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
+|        13 | Michael   | Jones     | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+16 rows in set (0.00 sec)
+
+🔴mysql> select * from admission where firstName like '%a%' or dob like '%11:43:09%';
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar     | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         3 | Ravi      | Shekhar   | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|         5 | Jane      | Smith     | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|         9 | Mark      | Taylor    | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|        10 | Emma      | Martinez  | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
+|        12 | Sophia    | Garcia    | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
+|        13 | Michael   | Jones     | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+14 rows in set (0.00 sec)
+
+mysql> select * from admission group by section;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'school.admission.studentID' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select * from admission where class=8 group by section;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'school.admission.studentID' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select count(studentID), section group by section;
+ERROR 1054 (42S22): Unknown column 'studentID' in 'field list'
+🔴mysql> select count(studentID), section from admission group by section;
++------------------+---------+
+| count(studentID) | section |
++------------------+---------+
+|                4 | B       |
+|                5 | A       |
+|                3 | C       |
+|                3 | D       |
+|                3 | E       |
++------------------+---------+
+5 rows in set (0.00 sec)
+
+🔴mysql> select section from admission group by section;
++---------+
+| section |
++---------+
+| B       |
+| A       |
+| C       |
+| D       |
+| E       |
++---------+
+5 rows in set (0.00 sec)
+
+mysql> select section, firstName from admission group by section;
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'school.admission.firstName' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select section, class from admission group by section;
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'school.admission.class' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select count(studentID), section from admission group by firstName;
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'school.admission.section' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+🔴mysql> select count(studentID) from admission group by firstName;
++------------------+
+| count(studentID) |
++------------------+
+|                1 |
+|                1 |
+|                1 |
+|                1 |
+|                1 |
+|                1 |
+|                1 |
+|                1 |
+|                1 |
+|                1 |
+|                1 |
+|                1 |
+|                1 |
+|                1 |
+|                1 |
+|                1 |
+|                1 |
+|                1 |
++------------------+
+18 rows in set (0.00 sec)
+
+🔴mysql> select count(studentID), firstName from admission group by firstName;
++------------------+-----------+
+| count(studentID) | firstName |
++------------------+-----------+
+|                1 | Sumant    |
+|                1 | Vinay     |
+|                1 | Ravi      |
+|                1 | John      |
+|                1 | Jane      |
+|                1 | Alice     |
+|                1 | Bob       |
+|                1 | Emily     |
+|                1 | Mark      |
+|                1 | Emma      |
+|                1 | Oliver    |
+|                1 | Sophia    |
+|                1 | Michael   |
+|                1 | William   |
+|                1 | Olivia    |
+|                1 | James     |
+|                1 | Isabella  |
+|                1 | Liam      |
++------------------+-----------+
+18 rows in set (0.00 sec)
+
+mysql> select count(studentID), firstName, lastName from admission group by firstName;
+ERROR 1055 (42000): Expression #3 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'school.admission.lastName' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+🔴mysql> select count(studentID), firstName from admission group by firstName;
++------------------+-----------+
+| count(studentID) | firstName |
++------------------+-----------+
+|                1 | Sumant    |
+|                1 | Vinay     |
+|                1 | Ravi      |
+|                1 | John      |
+|                1 | Jane      |
+|                1 | Alice     |
+|                1 | Bob       |
+|                1 | Emily     |
+|                1 | Mark      |
+|                1 | Emma      |
+|                1 | Oliver    |
+|                1 | Sophia    |
+|                1 | Michael   |
+|                1 | William   |
+|                1 | Olivia    |
+|                1 | James     |
+|                1 | Isabella  |
+|                1 | Liam      |
++------------------+-----------+
+18 rows in set (0.00 sec)
+
+🔴mysql> select count(studentID), class from admission group by class;
++------------------+-------+
+| count(studentID) | class |
++------------------+-------+
+|                5 |     8 |
+|                4 |     9 |
+|                3 |     7 |
+|                3 |     6 |
+|                3 |    10 |
++------------------+-------+
+5 rows in set (0.00 sec)
+
+🔴mysql> select count(studentID),sum(age), class from admission group by class;
++------------------+----------+-------+
+| count(studentID) | sum(age) | class |
++------------------+----------+-------+
+|                5 |      137 |     8 |
+|                4 |      108 |     9 |
+|                3 |       81 |     7 |
+|                3 |       97 |     6 |
+|                3 |       82 |    10 |
++------------------+----------+-------+
+5 rows in set (0.00 sec)
+
+🔴mysql> select * from admission order by age;
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         3 | Ravi      | Shekhar   | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|        13 | Michael   | Jones     | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|         5 | Jane      | Smith     | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|         2 | Vinay     | Kumar     | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|        11 | Oliver    | White     | 4587097896 |   26 | 2024-08-28 12:34:18 |     9 | A       |          0 |
+|         9 | Mark      | Taylor    | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|         8 | Emily     | Williams  | 8888888888 |   29 | 2024-08-14 12:34:18 |    10 | E       |          0 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
+|         4 | John      | Doe       | 1111111111 |   30 | 2025-01-19 12:34:18 |     8 | B       |          1 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|        10 | Emma      | Martinez  | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
+|         7 | Bob       | Brown     | 7777777777 |   32 | 2025-01-02 12:34:18 |     6 | D       |          1 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
+|        12 | Sophia    | Garcia    | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+18 rows in set (0.00 sec)
+
+🔴mysql> select * from admission order by class;
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+| studentID | firstName | lastName  | phoneNo    | age  | dob                 | class | section | adhar_bool |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+|         7 | Bob       | Brown     | 7777777777 |   32 | 2025-01-02 12:34:18 |     6 | D       |          1 |
+|        12 | Sophia    | Garcia    | 1212121212 |   33 | 2024-12-22 12:34:18 |     6 | D       |          1 |
+|        17 | Isabella  | Lopez     | 1717171717 |   32 | 2024-05-22 12:34:18 |     6 | D       |          1 |
+|         5 | Jane      | Smith     | 5555555555 |   25 | 2024-03-18 12:34:18 |     7 | C       |          1 |
+|        10 | Emma      | Martinez  | 1010101010 |   31 | 2024-09-22 12:34:18 |     7 | C       |          1 |
+|        15 | Olivia    | Thomas    | 1515151515 |   25 | 2024-05-25 12:34:18 |     7 | C       |          1 |
+|         1 | Sumant    | Shah      | 7488012323 |   28 | 2024-02-21 11:43:09 |     8 | B       |          1 |
+|         3 | Ravi      | Shekhar   | 6789546743 |   22 | 2024-02-21 12:01:32 |     8 | A       |          1 |
+|         4 | John      | Doe       | 1111111111 |   30 | 2025-01-19 12:34:18 |     8 | B       |          1 |
+|         9 | Mark      | Taylor    | 9999999999 |   27 | 2024-12-11 12:34:18 |     8 | B       |          1 |
+|        14 | William   | Anderson  | 1414141414 |   30 | 2024-10-07 12:34:18 |     8 | B       |          1 |
+|         2 | Vinay     | Kumar     | 7466012323 |   26 | 2024-02-21 11:52:36 |     9 | A       |          1 |
+|         6 | Alice     | Johnson   | 6666666666 |   28 | 2024-10-02 12:34:18 |     9 | A       |          0 |
+|        11 | Oliver    | White     | 4587097896 |   26 | 2024-08-28 12:34:18 |     9 | A       |          0 |
+|        16 | James     | Hernandez | 1616161616 |   28 | 2024-07-17 12:34:18 |     9 | A       |          0 |
+|         8 | Emily     | Williams  | 8888888888 |   29 | 2024-08-14 12:34:18 |    10 | E       |          0 |
+|        13 | Michael   | Jones     | 1313131313 |   24 | 2024-10-07 12:34:18 |    10 | E       |          0 |
+|        18 | Liam      | Scott     | 1818181818 |   29 | 2024-03-06 12:34:18 |    10 | E       |          0 |
++-----------+-----------+-----------+------------+------+---------------------+-------+---------+------------+
+18 rows in set (0.00 sec)
+
+🔴mysql> select sum(age) from admission where class=8 order by class;
++----------+
+| sum(age) |
++----------+
+|      137 |
++----------+
+1 row in set (0.00 sec)
+
+🔴mysql> select count(studentID),sum(age), max(age) class from admission group by class;
++------------------+----------+-------+
+| count(studentID) | sum(age) | class |
++------------------+----------+-------+
+|                5 |      137 |    30 |
+|                4 |      108 |    28 |
+|                3 |       81 |    31 |
+|                3 |       97 |    33 |
+|                3 |       82 |    29 |
++------------------+----------+-------+
+5 rows in set, 1 warning (0.00 sec)
+
+🔴mysql> select count(studentID),sum(age), max(age), class from admission group by class;
++------------------+----------+----------+-------+
+| count(studentID) | sum(age) | max(age) | class |
++------------------+----------+----------+-------+
+|                5 |      137 |       30 |     8 |
+|                4 |      108 |       28 |     9 |
+|                3 |       81 |       31 |     7 |
+|                3 |       97 |       33 |     6 |
+|                3 |       82 |       29 |    10 |
++------------------+----------+----------+-------+
+5 rows in set (0.00 sec)
+
+mysql>
+
+
+
+
