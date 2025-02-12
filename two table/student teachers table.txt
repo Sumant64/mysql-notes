@@ -1,7 +1,7 @@
 📝. Creation and Initial Setup
 -------------------------------
 
-mysql> show databases;
+🔴mysql> show databases;
 +--------------------+
 | Database           |
 +--------------------+
@@ -19,17 +19,17 @@ mysql> show databases;
 +--------------------+
 11 rows in set (0.00 sec)
 
-mysql> create database student_teacher;
+🔴mysql> create database student_teacher;
 Query OK, 1 row affected (0.01 sec)
 
-mysql> use student_teacher;
+🔴mysql> use student_teacher;
 Database changed
-mysql> show tables;
+🔴mysql> show tables;
 Empty set (0.01 sec)
 
 mysql> create table teachers (teacherID int auto_increment primary key, firstName varchar(100) not null, lastName varchar(100), phoneNo int unique not null, age int, subject varchar(100) not null, experience int;
 ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
-mysql> create table teachers (teacherID int auto_increment primary key, firstName varchar(100) not null, lastName varchar(100), phoneNo int unique not null, age int, subject varchar(100) not null, experience int);
+🔴mysql> create table teachers (teacherID int auto_increment primary key, firstName varchar(100) not null, lastName varchar(100), phoneNo int unique not null, age int, subject varchar(100) not null, experience int);
 Query OK, 0 rows affected (0.09 sec)
 
 mysql> show tables;
@@ -40,7 +40,7 @@ mysql> show tables;
 +---------------------------+
 1 row in set (0.00 sec)
 
-mysql> desc teachers;
+🔴mysql> desc teachers;
 +------------+--------------+------+-----+---------+----------------+
 | Field      | Type         | Null | Key | Default | Extra          |
 +------------+--------------+------+-----+---------+----------------+
@@ -63,7 +63,7 @@ ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that 
 mysql> create table students (studentID int auto_increment primary key, firstName varchar(100) not null, lastName varchar(100), phoneNo int unique not null, age int, teacherID int, foreign key (teacherID) references teachers(teacherID));
 Query OK, 0 rows affected (0.06 sec)
 
-mysql> show tables;
+🔴mysql> show tables;
 +---------------------------+
 | Tables_in_student_teacher |
 +---------------------------+
@@ -72,7 +72,7 @@ mysql> show tables;
 +---------------------------+
 2 rows in set (0.00 sec)
 
-mysql> desc students;
+🔴mysql> desc students;
 +-----------+--------------+------+-----+---------+----------------+
 | Field     | Type         | Null | Key | Default | Extra          |
 +-----------+--------------+------+-----+---------+----------------+
@@ -85,7 +85,7 @@ mysql> desc students;
 +-----------+--------------+------+-----+---------+----------------+
 6 rows in set (0.00 sec)
 
-mysql> desc teachers;
+🔴mysql> desc teachers;
 +------------+--------------+------+-----+---------+----------------+
 | Field      | Type         | Null | Key | Default | Extra          |
 +------------+--------------+------+-----+---------+----------------+
@@ -101,11 +101,11 @@ mysql> desc teachers;
 
 mysql> insert into teachers values
     -> (^C
-mysql> alter table teachers modify phoneNo varchar(10);
+🔴mysql> alter table teachers modify phoneNo varchar(10);
 Query OK, 0 rows affected (0.10 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
-mysql> desc teachers
+🔴mysql> desc teachers
     -> ;
 +------------+--------------+------+-----+---------+----------------+
 | Field      | Type         | Null | Key | Default | Extra          |
@@ -120,11 +120,11 @@ mysql> desc teachers
 +------------+--------------+------+-----+---------+----------------+
 7 rows in set (0.00 sec)
 
-mysql> alter table students modify phoneNo varchar(10);
+🔴mysql> alter table students modify phoneNo varchar(10);
 Query OK, 0 rows affected (2.01 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
-mysql> desc students;
+🔴mysql> desc students;
 +-----------+--------------+------+-----+---------+----------------+
 | Field     | Type         | Null | Key | Default | Extra          |
 +-----------+--------------+------+-----+---------+----------------+
@@ -137,14 +137,14 @@ mysql> desc students;
 +-----------+--------------+------+-----+---------+----------------+
 6 rows in set (0.00 sec)
 
-mysql> insert into teachers (firstName, lastName, phoneNo, age, subject, experience) values
+🔴mysql> insert into teachers (firstName, lastName, phoneNo, age, subject, experience) values
     -> ("anil", "kumar", "7809563489", 39, "maths", 10),
     -> ("piyush", "kumar", "9812456745", 45, "physics", 20),
     -> ("janki", "kumari", "5698763412", 34, "english", 10);
 Query OK, 3 rows affected (0.06 sec)
 Records: 3  Duplicates: 0  Warnings: 0
 
-mysql> select * from teachers;
+🔴mysql> select * from teachers;
 +-----------+-----------+----------+------------+------+---------+------------+
 | teacherID | firstName | lastName | phoneNo    | age  | subject | experience |
 +-----------+-----------+----------+------------+------+---------+------------+
@@ -154,12 +154,12 @@ mysql> select * from teachers;
 +-----------+-----------+----------+------------+------+---------+------------+
 3 rows in set (0.00 sec)
 
-mysql> insert into students (firstName, lastName, phoneNo, age, teacherID) values
+🔴mysql> insert into students (firstName, lastName, phoneNo, age, teacherID) values
     -> ('John', 'Doe', '1231', 23, 1),
     -> ('Jane', 'Smith', '11', 22, 1),
     -> ('Alice', 'Johnson', '123', 18, 2),
     -> ^C
-mysql> INSERT INTO your_table_name (firstName, lastName, phoneNo, age, teacherId)
+🔴mysql> INSERT INTO your_table_name (firstName, lastName, phoneNo, age, teacherId)
     -> VALUES
     -> ('John', 'Doe', '1234567891', 25, 1),
     -> ('Jane', 'Smith', '1234567892', 30, 2),
@@ -180,7 +180,7 @@ mysql> INSERT INTO your_table_name (firstName, lastName, phoneNo, age, teacherId
     -> ('Barbara', 'Anderson', '1234567817', 41, 2),
     -> ('Richard', 'Thomas', '1234567818', 42, 3);
 ERROR 1146 (42S02): Table 'student_teacher.your_table_name' doesn't exist
-mysql> INSERT INTO students (firstName, lastName, phoneNo, age, teacherId)
+🔴mysql> INSERT INTO students (firstName, lastName, phoneNo, age, teacherId)
     -> VALUES
     -> ('John', 'Doe', '1234567891', 25, 1),
     -> ('Jane', 'Smith', '1234567892', 30, 2),
@@ -203,7 +203,7 @@ mysql> INSERT INTO students (firstName, lastName, phoneNo, age, teacherId)
 Query OK, 18 rows affected (0.00 sec)
 Records: 18  Duplicates: 0  Warnings: 0
 
-mysql> show tables;
+🔴mysql> show tables;
 +---------------------------+
 | Tables_in_student_teacher |
 +---------------------------+
@@ -212,7 +212,7 @@ mysql> show tables;
 +---------------------------+
 2 rows in set (0.00 sec)
 
-mysql> select * from students;
+🔴mysql> select * from students;
 +-----------+-------------+-----------+------------+------+-----------+
 | studentID | firstName   | lastName  | phoneNo    | age  | teacherID |
 +-----------+-------------+-----------+------------+------+-----------+
@@ -237,7 +237,7 @@ mysql> select * from students;
 +-----------+-------------+-----------+------------+------+-----------+
 18 rows in set (0.00 sec)
 
-mysql> select * from teachers;
+🔴mysql> select * from teachers;
 +-----------+-----------+----------+------------+------+---------+------------+
 | teacherID | firstName | lastName | phoneNo    | age  | subject | experience |
 +-----------+-----------+----------+------------+------+---------+------------+
@@ -251,7 +251,7 @@ mysql> select * from teachers;
 
 ❓. show studentid , student.firstName and teacher.firstname student wise which teacher is teaching him?
 
-mysql> select students.studentID, students.firstName as 'Student Name', teachers.firstName as 'Teacher Name' from students left join teachers on students.teacherID = teachers.teacherID;
+🔴mysql> select students.studentID, students.firstName as 'Student Name', teachers.firstName as 'Teacher Name' from students left join teachers on students.teacherID = teachers.teacherID;
 +-----------+--------------+--------------+
 | studentID | Student Name | Teacher Name |
 +-----------+--------------+--------------+
@@ -276,7 +276,7 @@ mysql> select students.studentID, students.firstName as 'Student Name', teachers
 +-----------+--------------+--------------+
 18 rows in set (0.00 sec)
 
-mysql> select students.studentID, students.firstName as 'Student Name', teachers.firstName as 'Teacher Name' from students left join teachers on students.teacherID = teachers.teacherID limit 5 offset 0;
+🔴mysql> select students.studentID, students.firstName as 'Student Name', teachers.firstName as 'Teacher Name' from students left join teachers on students.teacherID = teachers.teacherID limit 5 offset 0;
 +-----------+--------------+--------------+
 | studentID | Student Name | Teacher Name |
 +-----------+--------------+--------------+
@@ -288,7 +288,7 @@ mysql> select students.studentID, students.firstName as 'Student Name', teachers
 +-----------+--------------+--------------+
 5 rows in set (0.00 sec)
 
-mysql> select students.studentID, students.firstName as 'Student Name', teachers.firstName as 'Teacher Name' from students left join teachers on students.teacherID = teachers.teacherID limit 5 offset 5;
+🔴mysql> select students.studentID, students.firstName as 'Student Name', teachers.firstName as 'Teacher Name' from students left join teachers on students.teacherID = teachers.teacherID limit 5 offset 5;
 +-----------+--------------+--------------+
 | studentID | Student Name | Teacher Name |
 +-----------+--------------+--------------+
@@ -300,7 +300,7 @@ mysql> select students.studentID, students.firstName as 'Student Name', teachers
 +-----------+--------------+--------------+
 5 rows in set (0.00 sec)
 
-mysql> select students.studentID, students.firstName as 'Student Name', teachers.firstName as 'Teacher Name' from students left join teachers on students.teacherID = teachers.teacherID limit 5 offset 10;
+🔴mysql> select students.studentID, students.firstName as 'Student Name', teachers.firstName as 'Teacher Name' from students left join teachers on students.teacherID = teachers.teacherID limit 5 offset 10;
 +-----------+--------------+--------------+
 | studentID | Student Name | Teacher Name |
 +-----------+--------------+--------------+
@@ -312,7 +312,7 @@ mysql> select students.studentID, students.firstName as 'Student Name', teachers
 +-----------+--------------+--------------+
 5 rows in set (0.00 sec)
 
-mysql> select students.studentID, students.firstName as 'Student Name', teachers.firstName as 'Teacher Name' from students left join teachers on students.teacherID = teachers.teacherID limit 5 offset 15;
+🔴mysql> select students.studentID, students.firstName as 'Student Name', teachers.firstName as 'Teacher Name' from students left join teachers on students.teacherID = teachers.teacherID limit 5 offset 15;
 +-----------+--------------+--------------+
 | studentID | Student Name | Teacher Name |
 +-----------+--------------+--------------+
@@ -327,7 +327,7 @@ mysql> select students.studentID, students.firstName as 'Student Name', teachers
 ❓. show student name, age, teacher name--> in this use concat to print (firstName and lastname) in one column..
 
 
-mysql> select students.studentID, students.firstName as 'Student FirstName', students.lastName as 'Student Last Name', students.age as 'Age', teachers.firstName as 'Teacher first Name', teachers.lastName as 'Teacher Last Name' from students left join teachers on students.teacherID= teachers.teacherID;
+🔴mysql> select students.studentID, students.firstName as 'Student FirstName', students.lastName as 'Student Last Name', students.age as 'Age', teachers.firstName as 'Teacher first Name', teachers.lastName as 'Teacher Last Name' from students left join teachers on students.teacherID= teachers.teacherID;
 +-----------+-------------------+-------------------+------+--------------------+-------------------+
 | studentID | Student FirstName | Student Last Name | Age  | Teacher first Name | Teacher Last Name |
 +-----------+-------------------+-------------------+------+--------------------+-------------------+
@@ -352,7 +352,7 @@ mysql> select students.studentID, students.firstName as 'Student FirstName', stu
 +-----------+-------------------+-------------------+------+--------------------+-------------------+
 18 rows in set (0.00 sec)
 
-mysql> select students.studentID, concat(students.firstName, students.lastName) as 'student name', students.age as 'Age', teachers.firstName as 'Teacher first Name', teachers.lastName as 'Teacher Last Name' from students left join teachers on students.teacherID= teachers.teacherID;
+🔴mysql> select students.studentID, concat(students.firstName, students.lastName) as 'student name', students.age as 'Age', teachers.firstName as 'Teacher first Name', teachers.lastName as 'Teacher Last Name' from students left join teachers on students.teacherID= teachers.teacherID;
 +-----------+------------------+------+--------------------+-------------------+
 | studentID | student name     | Age  | Teacher first Name | Teacher Last Name |
 +-----------+------------------+------+--------------------+-------------------+
@@ -377,7 +377,7 @@ mysql> select students.studentID, concat(students.firstName, students.lastName) 
 +-----------+------------------+------+--------------------+-------------------+
 18 rows in set (0.00 sec)
 
-mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'student name', students.age as 'Age', teachers.firstName as 'Teacher first Name', teachers.lastName as 'Teacher Last Name' from students left join teachers on students.teacherID= teachers.teacherID;
+🔴mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'student name', students.age as 'Age', teachers.firstName as 'Teacher first Name', teachers.lastName as 'Teacher Last Name' from students left join teachers on students.teacherID= teachers.teacherID;
 +-----------+-------------------+------+--------------------+-------------------+
 | studentID | student name      | Age  | Teacher first Name | Teacher Last Name |
 +-----------+-------------------+------+--------------------+-------------------+
@@ -402,7 +402,7 @@ mysql> select students.studentID, concat(students.firstName, ' ', students.lastN
 +-----------+-------------------+------+--------------------+-------------------+
 18 rows in set (0.00 sec)
 
-mysql> select students.studentID, students.firstName + ' ' + students.lastName as 'student name', students.age as 'Age', teachers.firstName as 'Teacher first Name', teachers.lastName as 'Teacher Last Name' from students left join teachers on students.teacherID= teachers.teacherID;
+🔴mysql> select students.studentID, students.firstName + ' ' + students.lastName as 'student name', students.age as 'Age', teachers.firstName as 'Teacher first Name', teachers.lastName as 'Teacher Last Name' from students left join teachers on students.teacherID= teachers.teacherID;
 +-----------+--------------+------+--------------------+-------------------+
 | studentID | student name | Age  | Teacher first Name | Teacher Last Name |
 +-----------+--------------+------+--------------------+-------------------+
@@ -427,7 +427,7 @@ mysql> select students.studentID, students.firstName + ' ' + students.lastName a
 +-----------+--------------+------+--------------------+-------------------+
 18 rows in set, 33 warnings (0.00 sec)
 
-mysql> select students.studentID, (students.firstName + ' ' + students.lastName) as 'student name', students.age as 'Age', teachers.firstName as 'Teacher first Name', teachers.lastName as 'Teacher Last Name' from students left join teachers on students.teacherID= teachers.teacherID;
+🔴mysql> select students.studentID, (students.firstName + ' ' + students.lastName) as 'student name', students.age as 'Age', teachers.firstName as 'Teacher first Name', teachers.lastName as 'Teacher Last Name' from students left join teachers on students.teacherID= teachers.teacherID;
 +-----------+--------------+------+--------------------+-------------------+
 | studentID | student name | Age  | Teacher first Name | Teacher Last Name |
 +-----------+--------------+------+--------------------+-------------------+
@@ -452,7 +452,7 @@ mysql> select students.studentID, (students.firstName + ' ' + students.lastName)
 +-----------+--------------+------+--------------------+-------------------+
 18 rows in set, 33 warnings (0.00 sec)
 
-mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'student name', students.age as 'Age', teachers.firstName as 'Teacher first Name', teachers.lastName as 'Teacher Last Name' from students left join teachers on students.teacherID= teachers.teacherID;
+🔴mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'student name', students.age as 'Age', teachers.firstName as 'Teacher first Name', teachers.lastName as 'Teacher Last Name' from students left join teachers on students.teacherID= teachers.teacherID;
 +-----------+-------------------+------+--------------------+-------------------+
 | studentID | student name      | Age  | Teacher first Name | Teacher Last Name |
 +-----------+-------------------+------+--------------------+-------------------+
@@ -481,7 +481,7 @@ mysql> select students.studentID, concat(students.firstName, ' ', students.lastN
 ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', ' ', teachers.lastName) as  from students left join teachers on students.teach' at line 1
 mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', count(teachers.firstName, ' ', teachers.lastName) as 'Teacher Name' from students left join teachers on students.teacherID= teachers.teacherID;
 ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', ' ', teachers.lastName) as 'Teacher Name' from students left join teachers on ' at line 1
-mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', concat(teachers.firstName, ' ', teachers.lastName) as 'Teacher Name' from students left join teachers on students.teacherID= teachers.teacherID;
+🔴mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', concat(teachers.firstName, ' ', teachers.lastName) as 'Teacher Name' from students left join teachers on students.teacherID= teachers.teacherID;
 +-----------+-------------------+------+--------------+
 | studentID | Student Name      | Age  | Teacher Name |
 +-----------+-------------------+------+--------------+
@@ -506,7 +506,7 @@ mysql> select students.studentID, concat(students.firstName, ' ', students.lastN
 +-----------+-------------------+------+--------------+
 18 rows in set (0.00 sec)
 
-mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', concat(teachers.firstName, ' ', teachers.lastName) as 'Teacher Name' from students left join teachers on students.teacherID= teachers.teacherID limit 5 offset 0;
+🔴mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', concat(teachers.firstName, ' ', teachers.lastName) as 'Teacher Name' from students left join teachers on students.teacherID= teachers.teacherID limit 5 offset 0;
 +-----------+-------------------+------+--------------+
 | studentID | Student Name      | Age  | Teacher Name |
 +-----------+-------------------+------+--------------+
@@ -518,7 +518,7 @@ mysql> select students.studentID, concat(students.firstName, ' ', students.lastN
 +-----------+-------------------+------+--------------+
 5 rows in set (0.00 sec)
 
-mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', concat(teachers.firstName, ' ', teachers.lastName) as 'Teacher Name' from students left join teachers on students.teacherID= teachers.teacherID limit 5 offset 5;
+🔴mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', concat(teachers.firstName, ' ', teachers.lastName) as 'Teacher Name' from students left join teachers on students.teacherID= teachers.teacherID limit 5 offset 5;
 +-----------+-------------------+------+--------------+
 | studentID | Student Name      | Age  | Teacher Name |
 +-----------+-------------------+------+--------------+
@@ -530,7 +530,7 @@ mysql> select students.studentID, concat(students.firstName, ' ', students.lastN
 +-----------+-------------------+------+--------------+
 5 rows in set (0.00 sec)
 
-mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', concat(teachers.firstName, ' ', teachers.lastName) as 'Teacher Name' from students left join teachers on students.teacherID= teachers.teacherID limit 5 offset 10;
+🔴mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', concat(teachers.firstName, ' ', teachers.lastName) as 'Teacher Name' from students left join teachers on students.teacherID= teachers.teacherID limit 5 offset 10;
 +-----------+-----------------+------+--------------+
 | studentID | Student Name    | Age  | Teacher Name |
 +-----------+-----------------+------+--------------+
@@ -542,7 +542,7 @@ mysql> select students.studentID, concat(students.firstName, ' ', students.lastN
 +-----------+-----------------+------+--------------+
 5 rows in set (0.00 sec)
 
-mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', concat(teachers.firstName, ' ', teachers.lastName) as 'Teacher Name' from students left join teachers on students.teacherID= teachers.teacherID limit 5 offset 15;
+🔴mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', concat(teachers.firstName, ' ', teachers.lastName) as 'Teacher Name' from students left join teachers on students.teacherID= teachers.teacherID limit 5 offset 15;
 +-----------+------------------+------+--------------+
 | studentID | Student Name     | Age  | Teacher Name |
 +-----------+------------------+------+--------------+
@@ -558,7 +558,7 @@ mysql> select students.studentID, concat(students.firstName, ' ', students.lastN
 ❓. show student name by concat and then age of student and which student study which subject?
 
 
-mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', teachers.subject from student
+🔴mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', teachers.subject from student
 s left join teachers on students.teacherID = teachers.teacherID;
 +-----------+-------------------+------+---------+
 | studentID | Student Name      | Age  | subject |
@@ -584,7 +584,7 @@ s left join teachers on students.teacherID = teachers.teacherID;
 +-----------+-------------------+------+---------+
 18 rows in set (0.00 sec)
 
-mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', teachers.subject from students left join teachers on students.teacherID = teachers.teacherID limit 5 offset 0;
+🔴mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', teachers.subject from students left join teachers on students.teacherID = teachers.teacherID limit 5 offset 0;
 +-----------+-------------------+------+---------+
 | studentID | Student Name      | Age  | subject |
 +-----------+-------------------+------+---------+
@@ -596,7 +596,7 @@ mysql> select students.studentID, concat(students.firstName, ' ', students.lastN
 +-----------+-------------------+------+---------+
 5 rows in set (0.00 sec)
 
-mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', teachers.subject from students left join teachers on students.teacherID = teachers.teacherID limit 5 offset 5;
+🔴mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', teachers.subject from students left join teachers on students.teacherID = teachers.teacherID limit 5 offset 5;
 +-----------+-------------------+------+---------+
 | studentID | Student Name      | Age  | subject |
 +-----------+-------------------+------+---------+
@@ -608,7 +608,7 @@ mysql> select students.studentID, concat(students.firstName, ' ', students.lastN
 +-----------+-------------------+------+---------+
 5 rows in set (0.00 sec)
 
-mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', teachers.subject from students left join teachers on students.teacherID = teachers.teacherID limit 5 offset 10;
+🔴mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', teachers.subject from students left join teachers on students.teacherID = teachers.teacherID limit 5 offset 10;
 +-----------+-----------------+------+---------+
 | studentID | Student Name    | Age  | subject |
 +-----------+-----------------+------+---------+
@@ -620,7 +620,7 @@ mysql> select students.studentID, concat(students.firstName, ' ', students.lastN
 +-----------+-----------------+------+---------+
 5 rows in set (0.00 sec)
 
-mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', teachers.subject from students left join teachers on students.teacherID = teachers.teacherID limit 5 offset 15;
+🔴mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', teachers.subject from students left join teachers on students.teacherID = teachers.teacherID limit 5 offset 15;
 +-----------+------------------+------+---------+
 | studentID | Student Name     | Age  | subject |
 +-----------+------------------+------+---------+
@@ -634,7 +634,7 @@ mysql> select students.studentID, concat(students.firstName, ' ', students.lastN
 
 ❓. show students who study particular subject maths, physics or english?
 
-mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', teachers.subject from students left join teachers on students.teacherID = teachers.teacherID where teachers.subject='maths';
+🔴mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', teachers.subject from students left join teachers on students.teacherID = teachers.teacherID where teachers.subject='maths';
 +-----------+----------------+------+---------+
 | studentID | Student Name   | Age  | subject |
 +-----------+----------------+------+---------+
@@ -647,7 +647,7 @@ mysql> select students.studentID, concat(students.firstName, ' ', students.lastN
 +-----------+----------------+------+---------+
 6 rows in set (0.00 sec)
 
-mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', teachers.subject from students left join teachers on students.teacherID = teachers.teacherID where teachers.subject='physics';
+🔴mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', teachers.subject from students left join teachers on students.teacherID = teachers.teacherID where teachers.subject='physics';
 +-----------+-------------------+------+---------+
 | studentID | Student Name      | Age  | subject |
 +-----------+-------------------+------+---------+
@@ -660,7 +660,7 @@ mysql> select students.studentID, concat(students.firstName, ' ', students.lastN
 +-----------+-------------------+------+---------+
 6 rows in set (0.00 sec)
 
-mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', teachers.subject from students left join teachers on students.teacherID = teachers.teacherID where teachers.subject='english';
+🔴mysql> select students.studentID, concat(students.firstName, ' ', students.lastName) as 'Student Name', students.age as 'Age', teachers.subject from students left join teachers on students.teacherID = teachers.teacherID where teachers.subject='english';
 +-----------+-----------------+------+---------+
 | studentID | Student Name    | Age  | subject |
 +-----------+-----------------+------+---------+
